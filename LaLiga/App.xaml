@@ -1,0 +1,38 @@
+﻿<Application x:Class="LaLiga.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LaLiga"
+             xmlns:views="clr-namespace:LaLiga.Views"
+             xmlns:viewmodels="clr-namespace:LaLiga.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+       <ResourceDictionary>
+
+        <DataTemplate DataType="{x:Type viewmodels:LigasViewModel}">
+            <views:LigasView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:EquiposViewModel}">
+            <views:EquiposView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:JugadoresViewModel}">
+            <views:JugadoresView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:ClasificacionViewModel}">
+            <views:ClasificacionView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:ResultadosViewModel}">
+            <views:ResultadosView/>
+        </DataTemplate>
+
+        
+
+
+
+        </ResourceDictionary>
+         
+    </Application.Resources>
+</Application>
