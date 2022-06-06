@@ -37,6 +37,11 @@ namespace LaLiga.Views
         {
             InitializeComponent();
         }
+
+        private void LigasListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
     
