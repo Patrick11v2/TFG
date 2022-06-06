@@ -4,9 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LaLiga.Views"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:LaLiga.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
      Height="730" Width="1500">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding UpdateLigasCommand}" CommandParameter="liga"/>
+        </i:EventTrigger>
+
+    </i:Interaction.Triggers>
 
     <StackPanel Background="Green" Opacity="0.7" >
 
@@ -22,12 +29,12 @@
 
             <TextBlock Grid.Column="0" Grid.Row="0" Text="LIGAS"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
             <StackPanel Grid.Row="1" Grid.Column="0">
-                <ListView x:Name="LigasListView" Background="#00000000" BorderBrush="#00000000" Foreground="Black" SelectionChanged="LigasListView_SelectionChanged" SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
+                <ListView x:Name="LigasListView" ItemsSource="{Binding ListaLigas}" Background="#00000000" BorderBrush="#00000000" Foreground="Black" SelectionChanged="LigasListView_SelectionChanged" SelectionMode="Extended" FontWeight="Bold" FontSize="14" Width="Auto" Height="600" FontStyle="Normal" >
                     <ListView.View >
                         <GridView >
-                            <GridViewColumn Header="Nombre" Width="280" />
-                            <GridViewColumn Header="Temporada" Width="225"/>
-                            <GridViewColumn Header="Equipos" Width="225 " />
+                            <GridViewColumn Header="Nombre" Width="280" DisplayMemberBinding="{Binding Path=Nombre}"/>
+                            <GridViewColumn Header="Temporada" Width="225" DisplayMemberBinding="{Binding Path=Temporada}"/>
+                            <GridViewColumn Header="Equipos" Width="225 " DisplayMemberBinding="{Binding Path=Equipos}"/>
                         </GridView>
                     </ListView.View>
 
@@ -51,10 +58,10 @@
                     <TextBlock Text="Nº Equipos" FontWeight="Black" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                     <TextBox x:Name="edt_nombre_liga" Grid.Row="0" VerticalAlignment="Bottom" Width="200 " FontSize="16"
-                             
+                              Text="{Binding CurrentLiga.Nombre}"  
                              Cursor="Arrow"
                               Background="Transparent"  Margin="0,50,0,0" />
-                    <ComboBox Name="comboTemporadas" Grid.Row="1" Margin="0,50,0,0" Background="Transparent" Width="200 " BorderBrush="Transparent" 
+                    <ComboBox Name="comboTemporadas" Grid.Row="1" Margin="0,50,0,0" Background="Transparent" Width="200 " BorderBrush="Transparent"  Text="{Binding CurrentLiga.Temporada}"
                               >
                         <ComboBoxItem Content="2022/2023"/>
                         <ComboBoxItem Content="2023/2024"/>
@@ -64,7 +71,7 @@
                         <ComboBoxItem Content="2027/2028"/>
                         <ComboBoxItem Content="2028/2029"/>
                     </ComboBox>
-                    <TextBox x:Name="edt_n_equipos" Grid.Row="2" VerticalAlignment="Bottom" Width="200 " FontSize="16"
+                    <TextBox x:Name="edt_n_equipos" Grid.Row="2" VerticalAlignment="Bottom" Width="200 " FontSize="16" Text="{Binding CurrentLiga.Equipos}"
                              materialDesign:HintAssist.Hint="Nombre Liga" 
                              Cursor="Arrow"
                              materialDesign:TextFieldAssist.HasClearButton="True" Background="Transparent"  Margin="0,50,0,0" />
