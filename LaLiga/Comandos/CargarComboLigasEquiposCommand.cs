@@ -9,7 +9,8 @@ using System.Windows.Input;
 
 namespace LaLiga.Comandos
 {
-     class UpdateLigasCommand : ICommand
+    class CargarComboLigasEquiposCommand : ICommand
+
     {
         public event EventHandler CanExecuteChanged;
 
@@ -20,19 +21,14 @@ namespace LaLiga.Comandos
 
         public void Execute(object parameter)
         {
-            if (parameter.Equals("liga"))
-            {
-                ligasViewModel.ListaLigas = DataSetHandler.getAllLigas();
-            }
-            else if (parameter.Equals("equipo"))
+            if (parameter.Equals("equipo"))
             {
                 equiposViewModel.ListaLigas = DataSetHandler.getAllLigas();
 
             }
         }
-        private LigasViewModel ligasViewModel { get; set; }
-
         private EquiposViewModel equiposViewModel { get; set; }
-        public UpdateLigasCommand(LigasViewModel ligasViewModel) { this.ligasViewModel = ligasViewModel; }  
-    }
+
+        public CargarComboLigasEquiposCommand (EquiposViewModel EquiposViewModel) { equiposViewModel = EquiposViewModel; }
+}
 }

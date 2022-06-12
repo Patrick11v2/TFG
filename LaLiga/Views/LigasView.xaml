@@ -5,7 +5,8 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LaLiga.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             x:Name="vistaLigas"
      Height="730" Width="1500">
 
     <i:Interaction.Triggers>
@@ -30,11 +31,20 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Text="LIGAS"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
             <StackPanel Grid.Row="1" Grid.Column="0">
                 <ListView x:Name="LigasListView" ItemsSource="{Binding ListaLigas}" Background="#00000000" BorderBrush="#00000000" Foreground="Black" SelectionChanged="LigasListView_SelectionChanged" SelectionMode="Extended" FontWeight="Bold" FontSize="14" Width="Auto" Height="600" FontStyle="Normal" >
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding LigasCommand}" 
+                                               CommandParameter="{Binding ElementName=LigasListView, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <ListView.View >
                         <GridView >
-                            <GridViewColumn Header="Nombre" Width="280" DisplayMemberBinding="{Binding Path=Nombre}"/>
-                            <GridViewColumn Header="Temporada" Width="225" DisplayMemberBinding="{Binding Path=Temporada}"/>
-                            <GridViewColumn Header="Equipos" Width="225 " DisplayMemberBinding="{Binding Path=Equipos}"/>
+                            <GridViewColumn Header="Nombre" Width="270" DisplayMemberBinding="{Binding Path=Nombre}"/>
+                            <GridViewColumn Header="Temporada" Width="215" DisplayMemberBinding="{Binding Path=Temporada}"/>
+                            <GridViewColumn Header="Equipos" Width="215 " DisplayMemberBinding="{Binding Path=Equipos}"/>
+                            <GridViewColumn Header="ID"  Width="30" DisplayMemberBinding="{Binding Path=ID_LIGA}"/>
                         </GridView>
                     </ListView.View>
 
@@ -81,10 +91,18 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,50,10,0">
 
-                    <Button x:Name="btnEditar" Width="120" Margin="5" Height="32"  Background="White" FontWeight="Bold" Content="EDITAR"/>
-                    <Button x:Name="btnEliminar" Width="120" Margin="5" Height="32"  Background="White" FontWeight="Bold" Content="ELIMINAR" />
-                    <Button x:Name="btnCrear" Width="120" Margin="5" Height="32"  Background="White" FontWeight="Bold" Content="CREAR" />
+                    <Button x:Name="btnEditar" Width="120" Margin="5" Height="32"  Background="White" FontWeight="Bold" Content="EDITAR" Command="{Binding EditarLigaCommand}" CommandParameter="{Binding ElementName=vistaLigas}"  Click="Button_Click"/>
+                    <Button x:Name="btnEliminar" Width="120" Margin="5" Height="32"  Background="White" FontWeight="Bold" Content="ELIMINAR" Command="{Binding EliminarLigaCommand}" CommandParameter="{Binding ElementName=vistaLigas}" Click="btnEliminar_Click" />
+                    <Button x:Name="btnCrear" Width="120" Margin="5" Height="32"  Background="White" FontWeight="Bold" Content="CREAR"  Command="{Binding GuardarLigaCommad}" CommandParameter="{Binding ElementName=vistaLigas}"  Click="Button_Click" />
 
+
+
+
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Margin="0,50,0,0">
+                    <TextBlock Text=" *No se puede crear ligas con el mismo nombre. " FontWeight="Black" />
+                    <TextBlock Text=" *No se puede crear ligas con mas de 20 equipos." FontWeight="Black"/>
+                    <TextBlock Text=" *No se puede eliminar una liga si esta contiene equipos." FontWeight="Black"/>
 
 
 

@@ -7,13 +7,18 @@ using System.Threading.Tasks;
 
 namespace LaLiga.Models
 {
-    class LigaModel : INotifyPropertyChanged
+    class LigaModel : INotifyPropertyChanged, ICloneable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(String propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
 
         private int id_liga;
@@ -47,6 +52,9 @@ namespace LaLiga.Models
         {
 
         }
+        public override string ToString()
+        {
+            return nombre+ " [ ID " + id_liga + " ] ";        }
 
         public LigaModel(int id_liga, string nombre, string temporada, int equipos)
         {

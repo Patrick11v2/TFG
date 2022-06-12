@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LaLiga.Views"
       mc:Ignorable="d" 
+             x:Name="vistaClasificacion"
       Height="730" Width="1500">
 
-    <StackPanel Background="Green" Opacity="0.5" />
+    <StackPanel Background="Green" Opacity="0.7" />
 </UserControl>

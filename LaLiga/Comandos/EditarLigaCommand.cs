@@ -1,5 +1,4 @@
-﻿using LaLiga.Models;
-using LaLiga.Services.DataSet;
+﻿using LaLiga.Services.DataSet;
 using LaLiga.ViewModels;
 using LaLiga.Views;
 using System;
@@ -12,7 +11,7 @@ using System.Windows.Input;
 
 namespace LaLiga.Comandos
 {
-    class GuardarLigaCommad : ICommand
+    class EditarLigaCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -22,30 +21,26 @@ namespace LaLiga.Comandos
         }
 
         public void Execute(object parameter)
-        {   LigasView vista = (LigasView)parameter;
-            bool insertarOK = DataSetHandler.insertarLiga(ligaViewModel.CurrentLiga);
-            if (!insertarOK)
+        {
+            LigasView vista = (LigasView)parameter;
+            bool editadoOK = DataSetHandler.editarLiga(ligasViewModel.CurrentLiga);
+            if (!editadoOK)
             {
-                MessageBox.Show("No se pudo insertar la liga");
+                MessageBox.Show("No se pudo editar la liga");
             }
             else
             {
                 ((LigasViewModel)vista.DataContext).UpdateLigasCommand.Execute("liga");
                 vista.LigasListView.SelectedIndex = 0;
-                
-                
-                MessageBox.Show("La liga se ha registrado correctamente");
-                ligaViewModel.CurrentLiga = new LigaModel();
+                MessageBox.Show("La liga se ha editado correctamente");
 
             }
         }
+        private LigasViewModel ligasViewModel { get; set; }
 
-
-        private LigasViewModel ligaViewModel { get; set; }
-
-        public GuardarLigaCommad(LigasViewModel LigasViewModel)
+        public EditarLigaCommand(LigasViewModel LigasViewModel)
         {
-           ligaViewModel=LigasViewModel;
+            ligasViewModel = LigasViewModel;
         }
     }
 }

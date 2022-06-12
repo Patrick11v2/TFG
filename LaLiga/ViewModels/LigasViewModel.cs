@@ -1,10 +1,12 @@
-﻿using LaLiga.Models;
+﻿using LaLiga.Comandos;
+using LaLiga.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace LaLiga.ViewModels
 {
@@ -40,6 +42,21 @@ namespace LaLiga.ViewModels
                 selectedLiga = value;
                 OnPropertyChanged(nameof(selectedLiga));
             }
+        }
+        public ICommand GuardarLigaCommad { get; set; }
+        public ICommand UpdateLigasCommand { get; set; }
+
+        public ICommand EliminarLigaCommand { get; set; }
+        public ICommand EditarLigaCommand { get; set; }
+
+        public ICommand LigasCommand { get; set; }
+        public LigasViewModel()
+        {
+            EditarLigaCommand = new EditarLigaCommand(this);
+            GuardarLigaCommad = new GuardarLigaCommad(this);
+            UpdateLigasCommand = new UpdateLigasCommand(this);
+            LigasCommand = new LigasCommand(this);
+            EliminarLigaCommand = new EliminarLigaCommand(this);
         }
     }
 }

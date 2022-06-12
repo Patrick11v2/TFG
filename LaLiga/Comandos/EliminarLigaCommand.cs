@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace LaLiga.Comandos
 {
-    class GuardarLigaCommad : ICommand
+    class EliminarLigaCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -22,30 +22,28 @@ namespace LaLiga.Comandos
         }
 
         public void Execute(object parameter)
-        {   LigasView vista = (LigasView)parameter;
-            bool insertarOK = DataSetHandler.insertarLiga(ligaViewModel.CurrentLiga);
-            if (!insertarOK)
+        {
+            LigasView vista = (LigasView)parameter;
+            bool borradoOK = DataSetHandler.borrarLiga(ligasViewModel.CurrentLiga);
+            if (!borradoOK)
             {
-                MessageBox.Show("No se pudo insertar la liga");
+                MessageBox.Show("No se pudo eliminar la liga");
             }
             else
             {
                 ((LigasViewModel)vista.DataContext).UpdateLigasCommand.Execute("liga");
                 vista.LigasListView.SelectedIndex = 0;
-                
-                
-                MessageBox.Show("La liga se ha registrado correctamente");
-                ligaViewModel.CurrentLiga = new LigaModel();
-
+                MessageBox.Show("La liga se ha eliminado correctamente");
+               
             }
         }
 
+        private LigasViewModel ligasViewModel { get; set; }
 
-        private LigasViewModel ligaViewModel { get; set; }
-
-        public GuardarLigaCommad(LigasViewModel LigasViewModel)
+        public EliminarLigaCommand (LigasViewModel LigasViewModel)
         {
-           ligaViewModel=LigasViewModel;
+            ligasViewModel = LigasViewModel;
         }
+
     }
 }

@@ -95,9 +95,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Comandos\CargarComboEquiposJugadoresCommand.cs" />
+    <Compile Include="Comandos\CargarComboLigasEquiposCommand.cs" />
+    <Compile Include="Comandos\CargarComboLigasJugadoresCommand.cs" />
+    <Compile Include="Comandos\EditarEquipoCommand.cs" />
+    <Compile Include="Comandos\EditarJugadorCommand.cs" />
+    <Compile Include="Comandos\EditarLigaCommand.cs" />
+    <Compile Include="Comandos\EliminarEquipoCommand.cs" />
+    <Compile Include="Comandos\EliminarJugadorCommand.cs" />
+    <Compile Include="Comandos\EliminarLigaCommand.cs" />
+    <Compile Include="Comandos\EquiposCommand.cs" />
+    <Compile Include="Comandos\GuardarEquipoCommand.cs" />
+    <Compile Include="Comandos\GuardarJugadorCommand.cs" />
     <Compile Include="Comandos\GuardarLigaCommad.cs" />
+    <Compile Include="Comandos\ICommnad.cs" />
+    <Compile Include="Comandos\JugadoresCommand.cs" />
+    <Compile Include="Comandos\LigasCommand.cs" />
+    <Compile Include="Comandos\UpdateEquiposCommand.cs" />
+    <Compile Include="Comandos\UpdateJugadoresClubCommand.cs" />
     <Compile Include="Comandos\UpdateLigasCommand.cs" />
     <Compile Include="Comandos\UpdateViewCommand.cs" />
+    <Compile Include="Models\JugadorModel.cs" />
     <Compile Include="Models\LigaModel.cs" />
     <Compile Include="Services\DataSet\DataSetHandler.cs" />
     <Compile Include="Services\DataSet\LigaDataSet.Designer.cs">
@@ -106,6 +124,7 @@
       <DependentUpon>LigaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ClasificacionViewModel.cs" />
+    <Compile Include="Models\EquipoModel.cs" />
     <Compile Include="ViewModels\EquiposViewModel.cs" />
     <Compile Include="ViewModels\JugadoresViewModel.cs" />
     <Compile Include="ViewModels\LigasViewModel.cs" />

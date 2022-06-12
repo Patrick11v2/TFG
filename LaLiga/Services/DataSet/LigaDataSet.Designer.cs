@@ -6040,14 +6040,14 @@ SELECT Id_Liga, NombreLiga, Temporada, NEquipos FROM LIGAS WHERE (Id_Liga = @Id_
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(LigaDataSet.LIGASDataTable dataTable) {
+        public virtual int Update(int iD_LIGA, LigaDataSet.LIGASDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(LigaDataSet dataSet) {
+        public virtual int Update(int iD_LIGA, string nombre, LigaDataSet dataSet) {
             return this.Adapter.Update(dataSet, "LIGAS");
         }
         
