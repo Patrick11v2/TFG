@@ -1,6 +1,5 @@
 ﻿using LaLiga.Services.DataSet;
 using LaLiga.ViewModels;
-using LaLiga.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Windows.Input;
 
 namespace LaLiga.Comandos
 {
-    class UpdateEquiposCommand : ICommand
+    class CargarComboLigasClasificacionCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -21,14 +20,10 @@ namespace LaLiga.Comandos
 
         public void Execute(object parameter)
         {
-            EquiposView vista = (EquiposView)parameter;
-            
-               ((EquiposViewModel)vista.DataContext).ListaEquipos = DataSetHandler.getAllEquipos();
-           
+           clasificacionViewModel.ListaLigas = DataSetHandler.getAllLigas();
         }
+        private ClasificacionViewModel clasificacionViewModel { get; set; }
 
-        
-       
-        public UpdateEquiposCommand( ) { }
+        public CargarComboLigasClasificacionCommand(ClasificacionViewModel ClasificacionViewModel) { this.clasificacionViewModel = ClasificacionViewModel; }
     }
 }

@@ -98,6 +98,8 @@ namespace LaLiga.Models
             get { return id_ligas; }
             set { id_ligas = value; OnPropertyChanged(nameof(ID_ligas)); }
         }
+        private int puntos;
+        public int Puntos { get { return puntos; } set { puntos = value; OnPropertyChanged(nameof(Puntos)); } }
 
         public EquipoModel()
         {
@@ -109,7 +111,7 @@ namespace LaLiga.Models
             return nombre;
         }
 
-        public EquipoModel(int id_club, string nombre, int golesF, int golesC, int nJugadores, int victorias, int derrotas, int empates, int tAmarillas, int tRojas, int id_ligas)
+        public EquipoModel(int id_club, string nombre, int golesF, int golesC, int nJugadores, int victorias, int derrotas, int empates, int tAmarillas, int tRojas, int id_ligas, int puntos)
         {
             this.id_club = id_club;
             this.nombre = nombre;
@@ -122,6 +124,7 @@ namespace LaLiga.Models
             this.tAmarillas = tAmarillas;
             this.tRojas = tRojas;
             this.id_ligas = id_ligas;
+            this.puntos = puntos;
         }
     }
 }

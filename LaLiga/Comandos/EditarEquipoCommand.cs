@@ -33,7 +33,7 @@ namespace LaLiga.Comandos
             }
             else
             {
-                ((EquiposViewModel)vista.DataContext).UpdateEquiposCommand.Execute("equipo");
+                ((EquiposViewModel)vista.DataContext).UpdateEquiposCommand.Execute(vista);
                 vista.EquiposListView.SelectedIndex = 0;
                 MessageBox.Show("La liga se ha editado correctamente");
 

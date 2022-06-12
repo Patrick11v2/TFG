@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LaLiga.Services.DataSet
 {
@@ -172,9 +173,14 @@ namespace LaLiga.Services.DataSet
                     }
                     foreach (DataRow row1 in LIGAS.Rows)
                     {
-                        if (NE >= (int)row1["NEquipos"])
+                        if (equipo.ID_ligas == (int)row1["Id_Liga"])
                         {
-                            return false;
+                            if (NE >= (int)row1["NEquipos"])
+                            {
+                                
+                                return false;
+                            }
+
                         }
                     }
                 }
@@ -329,12 +335,18 @@ namespace LaLiga.Services.DataSet
                     }
                     foreach (DataRow row1 in LIGAS.Rows)
                     {
-                        if (NE >= (int)row1["NEquipos"])
+                        if (equipo.ID_ligas == (int)row1["Id_Liga"])
                         {
-                            return false;
+                            if (NE >= (int)row1["NEquipos"])
+                            {
+
+                                return false;
+                            }
+
                         }
                     }
                 }
+
                 foreach (DataRow row in EQUIPOS.Rows)
                 {
                     if ((int)row["Id_Club"] == equipo.ID_CLUB)

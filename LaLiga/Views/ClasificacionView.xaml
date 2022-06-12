@@ -3,10 +3,121 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LaLiga.Views"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:LaLiga.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
              x:Name="vistaClasificacion"
       Height="730" Width="1500">
 
-    <StackPanel Background="Green" Opacity="0.7" />
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CargarComboLigasClasificacionCommand}" />
+
+
+        </i:EventTrigger>
+
+    </i:Interaction.Triggers>
+
+    <StackPanel Background="Green" Opacity="0.7" >
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="CLASIFICACIÓN"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="30" FontWeight="Black"/>
+            <ComboBox Name="comboLigas" Grid.Row="0" HorizontalAlignment="Right" Background="Transparent" Width="200 "  Height="25" BorderBrush="Transparent"
+                      ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}" >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding UpdateEquiposClasificacionCommand}" CommandParameter="{Binding ElementName=vistaClasificacion}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            
+
+
+            <TextBlock Text="Ligas" HorizontalAlignment="Right" Margin="0,0,210,0" VerticalAlignment="Center" FontSize="20" FontWeight="Black"/>
+           
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <ListView x:Name="EquiposListView" ItemsSource="{Binding ListaEquipos}" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
+
+               
+                    <ListView.View >
+                        <GridView >
+                            <GridViewColumn Header="Nombre" Width="200"  DisplayMemberBinding="{Binding Path=Nombre}"/>
+                            <GridViewColumn Header="Puntos" Width="70" DisplayMemberBinding="{Binding Path=Puntos}"/>
+                            <GridViewColumn Header="Victorias" Width="70 " DisplayMemberBinding="{Binding Path=Vctorias}" />
+                            <GridViewColumn Header="Empates" Width="70" DisplayMemberBinding="{Binding Path=Empates}" />
+                            <GridViewColumn Header="Derrotas" Width="70" DisplayMemberBinding="{Binding Path=Derrotas}" />
+                            <GridViewColumn Header="G/F" Width="60" DisplayMemberBinding="{Binding Path=GolesF}" />
+                            <GridViewColumn Header="G/C" Width="60" DisplayMemberBinding="{Binding Path=GolesC}" />
+                            <GridViewColumn Header="T/A" Width="60" DisplayMemberBinding="{Binding Path=TAmarillas}" />
+                            <GridViewColumn Header="T/R" Width="60" DisplayMemberBinding="{Binding Path=TRojas}" />
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="GOLEADORES" FontWeight="Black" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                    <TextBlock Text="AMONESTADOS" FontWeight="Black" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                
+
+
+                    <ListView x:Name="ListaGoleadores" Grid.Row="1" ItemsSource="{Binding ListaGoleadores}" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="250" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal">
+                        
+                    </ListView>
+                    <ListView x:Name="ListaAmonestados" Grid.Row="3" ItemsSource="{Binding ListaAmonestados}" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="250" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal">
+
+                    </ListView>
+
+
+
+
+
+
+                </Grid>
+
+              
+
+
+
+           
+
+            </StackPanel>
+
+
+        </Grid>
+
+
+
+
+
+
+
+
+
+
+
+    </StackPanel>
+
 </UserControl>
