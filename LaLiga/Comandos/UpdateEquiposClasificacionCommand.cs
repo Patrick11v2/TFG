@@ -28,26 +28,32 @@ namespace LaLiga.Comandos
             LigaModel model = ((ClasificacionViewModel)vista.DataContext).CurrentLiga;
             ObservableCollection<EquipoModel> listaEquiposClasificacion;
             clasificacionViewModel.ListaEquipos = new ObservableCollection<EquipoModel>();
-            if (model != null)
-            {
-                listaEquiposClasificacion = DataSetHandler.getAllEquipos();
-                foreach (EquipoModel equipo in listaEquiposClasificacion)
+                if (model != null)
                 {
-                    if (model.ID_LIGA == equipo.ID_ligas)
+                listaEquiposClasificacion = DataSetHandler.getAllEquipos();
+                    foreach (EquipoModel equipo in listaEquiposClasificacion)
                     {
-                        equipo.Puntos = (equipo.Vctorias * 3) + (equipo.Empates);
-                        clasificacionViewModel.ListaEquipos.Add(equipo);
+
+
+                        if (model.ID_LIGA == equipo.ID_ligas)
+                        {
+                            equipo.Puntos = (equipo.Vctorias * 3) + (equipo.Empates);
+                            clasificacionViewModel.ListaEquipos.Add(equipo);
+
+                        }
+                       
                     }
 
 
+
+                    
+                  
+                     
+                        
+                  
+
+
                 }
-
-
-
-
-
-
-            }
             }
             catch { }
 

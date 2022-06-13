@@ -24,6 +24,7 @@ namespace LaLiga.Comandos
             EquiposView vista = (EquiposView)parameter;
             
                ((EquiposViewModel)vista.DataContext).ListaEquipos = DataSetHandler.getAllEquipos();
+            
            
         }
 

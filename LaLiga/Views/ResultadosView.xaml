@@ -5,7 +5,38 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LaLiga.Views"
       mc:Ignorable="d" 
-       Height="730" Width="1500">
+       Height="900" Width="1500">
 
-    <StackPanel Background="Green" Opacity="0.5" />
+    <StackPanel Background="Green" Opacity="0.7" >
+        <TextBlock  Text="PARTIDOS"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock  Grid.Row="0"  Text="Jornada"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" FontWeight="Black" Margin="0,0,320,0"/>
+            <TextBlock  Grid.Row="0"  Text="Liga" FontSize="15" FontWeight="Black" Margin="335,0,0,0"/>
+            <ComboBox x:Name="comboLigas"  Grid.Row="1"   Background="Transparent" Width="200 "  Height="25" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="250,0,0,0"
+                      ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox Name="comboJornadas"   Grid.Row="1"  Background="Transparent" Width="200 "  Height="25" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,0,250,0"
+                      ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}" ></ComboBox>
+        </Grid>
+
+     
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Width="900" Height="600" Margin="0,30,0,0">
+                <TextBlock Text="PARTIDO" x:Name="p1" FontWeight="Black" HorizontalAlignment="Center" FontSize="30"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        
+                    </Grid.RowDefinitions>
+                </Grid>
+            </StackPanel>
+         
+
+    </StackPanel>
 </UserControl>

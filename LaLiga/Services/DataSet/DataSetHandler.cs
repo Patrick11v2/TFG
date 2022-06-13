@@ -94,6 +94,7 @@ namespace LaLiga.Services.DataSet
                 }
 
             }
+            
             return listaEquipos;
         }
         public static ObservableCollection<JugadorModel> getAllJugadores()
@@ -128,6 +129,149 @@ namespace LaLiga.Services.DataSet
             return listaJugadores;
         }
 
+        public static ObservableCollection<PartidoModel> getAllPartidos()
+        {
+            DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
+            ObservableCollection<PartidoModel> listaPartidos = new ObservableCollection<PartidoModel>();
+            ObservableCollection<EquipoModel> listaEquipos = getAllEquipos();
+            ObservableCollection<LigaModel> listaLigas = getAllLigas();
+           
+
+            foreach(DataRow row in PARTIDOS.Rows)
+            {
+                PartidoModel myPartido = new PartidoModel();
+                myPartido.IdPartido = (int)row["Id_Partido"];
+                foreach(EquipoModel equipo in listaEquipos)
+                {
+                    if(equipo.ID_CLUB == (int)row["Id_ELocal"])
+                    {
+                        myPartido.EquipoLocal = equipo;
+                    }
+                }
+                foreach (EquipoModel equipo in listaEquipos)
+                {
+                    if (equipo.ID_CLUB == (int)row["Id_EVisitante"])
+                    {
+                        myPartido.EquipoVisitante = equipo;
+                    }
+                }
+                myPartido.GLocal = (int)row["GLocal"];
+                myPartido.GVisitante = (int)row["GVisitante"];
+                myPartido.TRLocal = (int)row["TRLocal"];
+                myPartido.TALocal = (int)row["TALocal"];
+                myPartido.TRVisitante = (int)row["TRVisitante"];
+                myPartido.TAVisitante = (int)row["TAVisitante"];
+                myPartido.Id_jornada = (int)row["Id_Jornada"];
+                foreach(LigaModel liga in listaLigas)
+                {
+                    if(liga.ID_LIGA == (int)row["Id_Liga2"])
+                    {
+                        myPartido.LigaPartido = liga;
+                    }
+                }
+                listaPartidos.Add(myPartido);
+
+            }
+            return listaPartidos;
+
+        }
+        public static ObservableCollection<AnotadorModel> getAllAnotadores()
+        {
+            DataTable ANOTADORES = ANOTADORESAdapter.GetData();
+            ObservableCollection<AnotadorModel> listaAnotadores = new ObservableCollection<AnotadorModel>();
+            ObservableCollection<PartidoModel> listaPartidos = getAllPartidos();
+            ObservableCollection<JugadorModel> listaJugadores = getAllJugadores();
+
+            foreach(DataRow row in ANOTADORES.Rows)
+            {
+                AnotadorModel myAnotador = new AnotadorModel();
+                foreach(JugadorModel jugador in listaJugadores)
+                {
+                    if(jugador.ID_jugador == (int)row["Id_Jugador1"])
+                    {
+                        myAnotador.Jugador=jugador;
+                    }
+                }
+                myAnotador.GolesPartido = (int)row["Goles"];
+                foreach(PartidoModel partido in listaPartidos)
+                {
+                    if(partido.IdPartido == (int)row["Id_Partido1"])
+                    {
+                        myAnotador.Partido=partido;
+                    }
+                }
+                listaAnotadores.Add(myAnotador);
+            }
+            return listaAnotadores;
+
+        }
+        public static ObservableCollection<JugadorModel> getGoleadoresLiga(LigaModel currentLiga)
+        {
+           
+            ObservableCollection<JugadorModel> listaGoleadoresLiga = new ObservableCollection<JugadorModel>();
+           
+            ObservableCollection<JugadorModel> listaJugadores = getAllJugadores();
+
+          
+                foreach(JugadorModel jugador in listaJugadores)
+                {
+                    if(jugador.Goles > 0 && jugador.Equipo.ID_ligas == currentLiga.ID_LIGA) 
+                    {
+                    listaGoleadoresLiga.Add(jugador);
+                    }
+                }
+
+            return listaGoleadoresLiga;
+        }
+        public static ObservableCollection<JugadorModel> getAmonestadosLiga(LigaModel currentLiga)
+        {
+
+            ObservableCollection<JugadorModel> listaAmonestadosLiga = new ObservableCollection<JugadorModel>();
+
+            ObservableCollection<JugadorModel> listaJugadores = getAllJugadores();
+
+
+            foreach (JugadorModel jugador in listaJugadores)
+            {
+                if (jugador.TAmarillas > 0 || jugador.TRojas >0 && (jugador.Equipo.ID_ligas == currentLiga.ID_LIGA))
+                {
+                    listaAmonestadosLiga.Add(jugador);
+                }
+            }
+
+            return listaAmonestadosLiga;
+        }
+        public static ObservableCollection<AmonestadoModel> getAllAmonestados()
+        {
+
+            DataTable AMONESTADOS = AMONESTADOSTAdapter.GetData();
+            ObservableCollection<AmonestadoModel> listaAmonestados = new ObservableCollection<AmonestadoModel>();
+            ObservableCollection<PartidoModel> listaPartidos = getAllPartidos();
+            ObservableCollection<JugadorModel> listaJugadores = getAllJugadores();
+            foreach(DataRow row in AMONESTADOS.Rows)
+            {
+                AmonestadoModel myAmonestado = new AmonestadoModel();
+                foreach(JugadorModel jugador in listaJugadores)
+                {
+                    if(jugador.ID_jugador == (int)row["Id_Jugador1"])
+                    {
+                        myAmonestado.Jugador = jugador;
+                    }
+                }
+                myAmonestado.TAmarilla = (int)row["TA"];
+                myAmonestado.TRoja = (int)row["TR"];
+                foreach(PartidoModel partido in listaPartidos)
+                {
+                    if(partido.IdPartido == (int)row["Id_Partido1"])
+                    {
+                        myAmonestado.Partido = partido;
+                    }
+                }
+                listaAmonestados.Add(myAmonestado);
+            }
+            return listaAmonestados;
+        }
+
         public static bool insertarLiga(LigaModel liga)
         {
             DataTable LIGAS = LIGASAdapter.GetData();
@@ -149,6 +293,150 @@ namespace LaLiga.Services.DataSet
             {
                 return false;
             }
+        }
+        public static bool insertarPartido(PartidoModel partido)
+        {
+            DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
+            DataTable EQUIPOS = CLUBESTAdapter.GetData();
+
+            try
+            {foreach(DataRow row1 in PARTIDOS.Rows)
+                {
+                    if((int)row1["Id_Liga2"] == partido.LigaPartido.ID_LIGA &&  (int)row1["Id_ELocal"]==partido.EquipoLocal.ID_CLUB && (int)row1["Id_EVisitante"] == partido.EquipoVisitante.ID_CLUB)
+                    {
+                        return false;
+                    }
+                }
+                PARTIDOSTAdapter.Insert(partido.EquipoLocal.ID_CLUB, partido.EquipoVisitante.ID_CLUB, partido.GLocal, partido.GVisitante, partido.TRLocal, partido.TALocal, partido.TRVisitante, partido.TAVisitante,
+                    partido.Id_jornada, partido.LigaPartido.ID_LIGA);
+                if(partido.GLocal > partido.GVisitante)
+                {
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                        if ((int)row["Id_Club"] == partido.EquipoLocal.ID_CLUB)
+                        {
+                            EquipoModel myEquipo = new EquipoModel();
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            partido.EquipoLocal.GolesF = partido.EquipoLocal.GolesF + partido.GLocal;
+                            partido.EquipoLocal.GolesC = partido.EquipoLocal.GolesC + partido.GVisitante;
+                            partido.EquipoLocal.TAmarillas = partido.EquipoLocal.TAmarillas + partido.TALocal;
+                            partido.EquipoLocal.TRojas = partido.EquipoLocal.TRojas + partido.TRLocal;
+                            partido.EquipoLocal.Vctorias = partido.EquipoLocal.Vctorias + 1;
+
+                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.NJugadores, partido.EquipoLocal.Vctorias, myEquipo.Derrotas, myEquipo.Empates
+                                , partido.EquipoLocal.TAmarillas, partido.EquipoLocal.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
+                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        }
+                    }
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                        if ((int)row["Id_Club"] == partido.EquipoVisitante.ID_CLUB)
+                        {
+                            EquipoModel myEquipo = new EquipoModel();
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            partido.EquipoVisitante.GolesF = partido.EquipoVisitante.GolesF + partido.GVisitante;
+                            partido.EquipoVisitante.GolesC = partido.EquipoVisitante.GolesC + partido.GLocal;
+                            partido.EquipoVisitante.TAmarillas = partido.EquipoVisitante.TAmarillas + partido.TAVisitante;
+                            partido.EquipoVisitante.TRojas = partido.EquipoVisitante.TRojas + partido.TRVisitante;
+                            partido.EquipoVisitante.Vctorias = partido.EquipoVisitante.Derrotas + 1;
+
+                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, partido.EquipoVisitante.Derrotas, myEquipo.Empates
+                                , partido.EquipoVisitante.TAmarillas, partido.EquipoVisitante.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
+                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        }
+                    }
+                }
+                if (partido.GLocal == partido.GVisitante)
+
+                {
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                        if ((int)row["Id_Club"] == partido.EquipoLocal.ID_CLUB)
+                        {
+                            EquipoModel myEquipo = new EquipoModel();
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            partido.EquipoLocal.GolesF = partido.EquipoLocal.GolesF + partido.GLocal;
+                            partido.EquipoLocal.GolesC = partido.EquipoLocal.GolesC + partido.GVisitante;
+                            partido.EquipoLocal.TAmarillas = partido.EquipoLocal.TAmarillas + partido.TALocal;
+                            partido.EquipoLocal.TRojas = partido.EquipoLocal.TRojas + partido.TRLocal;
+                            partido.EquipoLocal.Vctorias = partido.EquipoLocal.Empates + 1;
+
+                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, myEquipo.Derrotas, partido.EquipoLocal.Empates
+                                , partido.EquipoLocal.TAmarillas, partido.EquipoLocal.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
+                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        }
+                    }
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                        if ((int)row["Id_Club"] == partido.EquipoVisitante.ID_CLUB)
+                        {
+                            EquipoModel myEquipo = new EquipoModel();
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            partido.EquipoVisitante.GolesF = partido.EquipoVisitante.GolesF + partido.GVisitante;
+                            partido.EquipoVisitante.GolesC = partido.EquipoVisitante.GolesC + partido.GLocal;
+                            partido.EquipoVisitante.TAmarillas = partido.EquipoVisitante.TAmarillas + partido.TAVisitante;
+                            partido.EquipoVisitante.TRojas = partido.EquipoVisitante.TRojas + partido.TRVisitante;
+                            partido.EquipoVisitante.Vctorias = partido.EquipoVisitante.Empates + 1;
+
+                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, myEquipo.Derrotas, partido.EquipoVisitante.Empates
+                                , partido.EquipoVisitante.TAmarillas, partido.EquipoVisitante.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
+                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        }
+                    }
+                }
+                if(partido.GLocal < partido.GVisitante)
+                {
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                        if ((int)row["Id_Club"] == partido.EquipoLocal.ID_CLUB)
+                        {
+                            EquipoModel myEquipo = new EquipoModel();
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            partido.EquipoLocal.GolesF = partido.EquipoLocal.GolesF + partido.GLocal;
+                            partido.EquipoLocal.GolesC = partido.EquipoLocal.GolesC + partido.GVisitante;
+                            partido.EquipoLocal.TAmarillas = partido.EquipoLocal.TAmarillas + partido.TALocal;
+                            partido.EquipoLocal.TRojas = partido.EquipoLocal.TRojas + partido.TRLocal;
+                            partido.EquipoLocal.Vctorias = partido.EquipoLocal.Derrotas + 1;
+
+                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, partido.EquipoLocal.Derrotas, myEquipo.Empates
+                                , partido.EquipoLocal.TAmarillas, partido.EquipoLocal.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
+                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        }
+                    }
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                        if ((int)row["Id_Club"] == partido.EquipoVisitante.ID_CLUB)
+                        {
+                            EquipoModel myEquipo = new EquipoModel();
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            partido.EquipoVisitante.GolesF = partido.EquipoVisitante.GolesF + partido.GVisitante;
+                            partido.EquipoVisitante.GolesC = partido.EquipoVisitante.GolesC + partido.GLocal;
+                            partido.EquipoVisitante.TAmarillas = partido.EquipoVisitante.TAmarillas + partido.TAVisitante;
+                            partido.EquipoVisitante.TRojas = partido.EquipoVisitante.TRojas + partido.TRVisitante;
+                            partido.EquipoVisitante.Vctorias = partido.EquipoVisitante.Vctorias + 1;
+
+                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, myEquipo.NJugadores, partido.EquipoVisitante.Vctorias, myEquipo.Derrotas, myEquipo.Empates
+                                , partido.EquipoVisitante.TAmarillas, partido.EquipoVisitante.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
+                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        }
+                    }
+                }
+                return true;       
+                }
+            catch { return false; }
+
         }
         public static bool insertarEquipo(EquipoModel equipo)
         {

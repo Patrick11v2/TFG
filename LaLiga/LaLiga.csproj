@@ -112,13 +112,18 @@
     <Compile Include="Comandos\ICommnad.cs" />
     <Compile Include="Comandos\JugadoresCommand.cs" />
     <Compile Include="Comandos\LigasCommand.cs" />
+    <Compile Include="Comandos\UpdateAmonestadosClasificacionCommand.cs" />
     <Compile Include="Comandos\UpdateEquiposClasificacionCommand.cs" />
     <Compile Include="Comandos\UpdateEquiposCommand.cs" />
+    <Compile Include="Comandos\UpdateGoleadoresClasificacionCommand.cs" />
     <Compile Include="Comandos\UpdateJugadoresClubCommand.cs" />
     <Compile Include="Comandos\UpdateLigasCommand.cs" />
     <Compile Include="Comandos\UpdateViewCommand.cs" />
+    <Compile Include="Models\AmonestadoModel.cs" />
+    <Compile Include="Models\AnotadorModel.cs" />
     <Compile Include="Models\JugadorModel.cs" />
     <Compile Include="Models\LigaModel.cs" />
+    <Compile Include="Models\PartidoModel.cs" />
     <Compile Include="Services\DataSet\DataSetHandler.cs" />
     <Compile Include="Services\DataSet\LigaDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -24,5 +24,10 @@ namespace LaLiga.Views
         {
             InitializeComponent();
         }
+
+        private void ListaGoleadores_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

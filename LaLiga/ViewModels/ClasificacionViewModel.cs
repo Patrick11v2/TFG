@@ -43,15 +43,34 @@ namespace LaLiga.ViewModels
                 OnPropertyChanged();
             }
         }
-            
+
+        private ObservableCollection<JugadorModel> listaGoleadores;
+        public ObservableCollection<JugadorModel> ListaGoleadores
+        {
+            get => listaGoleadores is null ? listaGoleadores = new ObservableCollection<JugadorModel>() : listaGoleadores;
+            set { listaGoleadores = value; OnPropertyChanged(nameof(ListaGoleadores)); }
+        }
+        private ObservableCollection<JugadorModel> listaAmonestados;
+        public ObservableCollection<JugadorModel> ListaAmonestados
+        {
+            get => listaAmonestados is null ? listaAmonestados = new ObservableCollection<JugadorModel>() : listaAmonestados;
+            set { listaAmonestados = value; OnPropertyChanged(nameof(ListaAmonestados)); }
+        }
+
 
         public ICommand CargarComboLigasClasificacionCommand { get; set; }
         public ICommand UpdateEquiposClasificacionCommand { set; get; }
+        public ICommand UpdateAmonestadosClasificacionCommand { set; get; }
+
+        public ICommand UpdateGoleadoresClasificacionCommand { set; get; }
 
         public ClasificacionViewModel()
         {
             CargarComboLigasClasificacionCommand = new CargarComboLigasClasificacionCommand(this);
             UpdateEquiposClasificacionCommand = new UpdateEquiposClasificacionCommand(this);
+            UpdateGoleadoresClasificacionCommand = new UpdateGoleadoresClasificacionCommand(this);
+
+            UpdateAmonestadosClasificacionCommand = new UpdateAmonestadosClasificacionCommand(this);
         }
     }
 }
