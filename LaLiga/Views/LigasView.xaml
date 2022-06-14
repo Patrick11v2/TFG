@@ -104,6 +104,7 @@
                     <TextBlock Text=" *No se puede crear ligas con mas de 20 equipos." FontWeight="Black"/>
                     <TextBlock Text=" *No se puede crear ligas con menos de 3 equipos." FontWeight="Black"/>
                     <TextBlock Text=" *No se puede eliminar una liga si esta contiene equipos." FontWeight="Black"/>
+                    <TextBlock Text=" *No se puede editar el numero de equipos por debajo de los equipos asociados a la liga." FontWeight="Black"/>
 
 
 

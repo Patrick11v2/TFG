@@ -95,12 +95,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Comandos\AñadirGoleadorLocalCommand.cs" />
     <Compile Include="Comandos\CargarComboEquiposJugadoresCommand.cs" />
     <Compile Include="Comandos\CargarComboJornadasResultadosCommand.cs" />
     <Compile Include="Comandos\CargarComboLigasClasificacionCommand.cs" />
     <Compile Include="Comandos\CargarComboLigasEquiposCommand.cs" />
     <Compile Include="Comandos\CargarComboLigasJugadoresCommand.cs" />
     <Compile Include="Comandos\CargarComboLigasResultadosCommand.cs" />
+    <Compile Include="Comandos\CargarEquiposResultadosCommand.cs" />
     <Compile Include="Comandos\EditarEquipoCommand.cs" />
     <Compile Include="Comandos\EditarJugadorCommand.cs" />
     <Compile Include="Comandos\EditarLigaCommand.cs" />
@@ -114,12 +116,16 @@
     <Compile Include="Comandos\ICommnad.cs" />
     <Compile Include="Comandos\JugadoresCommand.cs" />
     <Compile Include="Comandos\LigasCommand.cs" />
+    <Compile Include="Comandos\PartidosCommand.cs" />
     <Compile Include="Comandos\UpdateAmonestadosClasificacionCommand.cs" />
     <Compile Include="Comandos\UpdateEquiposClasificacionCommand.cs" />
     <Compile Include="Comandos\UpdateEquiposCommand.cs" />
     <Compile Include="Comandos\UpdateGoleadoresClasificacionCommand.cs" />
     <Compile Include="Comandos\UpdateJugadoresClubCommand.cs" />
+    <Compile Include="Comandos\UpdateJugadoresClubLocalResultadosCommand.cs" />
+    <Compile Include="Comandos\UpdateJugadoresClubVisitanteResultadosCommand.cs" />
     <Compile Include="Comandos\UpdateLigasCommand.cs" />
+    <Compile Include="Comandos\UpdatePartidosResultadosCommand.cs" />
     <Compile Include="Comandos\UpdateViewCommand.cs" />
     <Compile Include="Models\AmonestadoModel.cs" />
     <Compile Include="Models\AnotadorModel.cs" />

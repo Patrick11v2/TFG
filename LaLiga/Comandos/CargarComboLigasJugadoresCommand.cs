@@ -20,8 +20,11 @@ namespace LaLiga.Comandos
 
         public void Execute(object parameter)
         {
-            jugadoresViewModel.ListaLigas = DataSetHandler.getAllLigas();
-           
+            try
+            {
+                jugadoresViewModel.ListaLigas = DataSetHandler.getAllLigas();
+            }
+            catch { }
         }
 
         private JugadoresViewModel jugadoresViewModel { get; set; }

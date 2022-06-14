@@ -1,6 +1,5 @@
-﻿using LaLiga.Services.DataSet;
+﻿using LaLiga.Models;
 using LaLiga.ViewModels;
-using LaLiga.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Windows.Input;
 
 namespace LaLiga.Comandos
 {
-    class UpdateEquiposCommand : ICommand
+    class PartidosCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -21,18 +20,14 @@ namespace LaLiga.Comandos
 
         public void Execute(object parameter)
         {
-            try
+            if (parameter != null)
             {
-                EquiposView vista = (EquiposView)parameter;
+                PartidoModel partido = (PartidoModel)parameter;
+                resultadosViewModel.CurrentPartido = (PartidoModel)partido.Clone();
 
-                ((EquiposViewModel)vista.DataContext).ListaEquipos = DataSetHandler.getAllEquipos();
             }
-            catch { }
-           
         }
-
-        
-       
-        public UpdateEquiposCommand( ) { }
+        private ResultadosViewModel resultadosViewModel { get; set; }
+        public PartidosCommand (ResultadosViewModel ResultadosViewModel) { resultadosViewModel = ResultadosViewModel; }
     }
 }

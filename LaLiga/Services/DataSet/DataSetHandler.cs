@@ -329,11 +329,29 @@ namespace LaLiga.Services.DataSet
         {
             DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
             DataTable EQUIPOS = CLUBESTAdapter.GetData();
-
+            int np = 0;
             try
             {foreach(DataRow row1 in PARTIDOS.Rows)
                 {
                     if((int)row1["Id_Liga2"] == partido.LigaPartido.ID_LIGA &&  (int)row1["Id_ELocal"]==partido.EquipoLocal.ID_CLUB && (int)row1["Id_EVisitante"] == partido.EquipoVisitante.ID_CLUB)
+                    {
+                        return false;
+                    }
+                    if(partido.Id_jornada == (int)row1["Id_Jornada"] && partido.LigaPartido.ID_LIGA == (int)row1["Id_Liga2"])
+                    {
+                        np++;
+                    }
+                }
+            if((partido.LigaPartido.Equipos %2) == 0)
+                {
+                    if(np >= (partido.LigaPartido.Equipos / 2))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if(np>= ((partido.LigaPartido.Equipos-1) / 2))
                     {
                         return false;
                     }
@@ -614,7 +632,7 @@ namespace LaLiga.Services.DataSet
         {
             DataTable LIGAS = LIGASAdapter.GetData();
             try
-            {
+            { 
 
                 foreach (DataRow row in LIGAS.Rows)
                 {

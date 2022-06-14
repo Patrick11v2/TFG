@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Input;
 
 namespace LaLiga.Comandos
@@ -24,10 +25,11 @@ namespace LaLiga.Comandos
 
         public void Execute(object parameter)
         {
-            try
-            {
+           
                 JugadoresView vista = (JugadoresView)parameter;
+            try { 
                 if(((JugadoresViewModel)vista.DataContext).CurrentLiga != null) { 
+
             LigaModel model = ((JugadoresViewModel)vista.DataContext).CurrentLiga;
             ObservableCollection<EquipoModel> listaEquiposLiga;
             jugadoresViewModel.ListaEquipos = new ObservableCollection<EquipoModel>() ;
@@ -53,9 +55,11 @@ namespace LaLiga.Comandos
                 }
                 }
                 else {  }
-
             }
-            catch {  }
+            catch { }
+
+
+
         }
 
         private JugadoresViewModel jugadoresViewModel { get; set; }

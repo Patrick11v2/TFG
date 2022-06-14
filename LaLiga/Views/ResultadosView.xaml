@@ -30,12 +30,20 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding CargarComboJornadasResultadosCommand}" CommandParameter="{Binding ElementName=vistaResultados}" />
-                  
+                        <i:InvokeCommandAction Command="{Binding CargarEquiposResultadosCommand}" CommandParameter="{Binding ElementName=vistaResultados}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
             <ComboBox Name="comboJornadas"   Grid.Row="1"  Background="Transparent" Width="200 "  Height="25" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,0,250,0"
-                      ItemsSource="{Binding ListaJornadas}" SelectedItem="{Binding CurrentIdJornada, UpdateSourceTrigger=PropertyChanged}" ></ComboBox>
+                      ItemsSource="{Binding ListaJornadas}" SelectedItem="{Binding CurrentIdJornada, UpdateSourceTrigger=PropertyChanged}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding UpdatePartidosResultadosCommand}" CommandParameter="{Binding ElementName=vistaResultados}" />
+
+                </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </ComboBox>
         </Grid>
 
         <Grid Margin="0,50,0,0">
@@ -44,7 +52,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <ListView x:Name="ListaPartidos" ItemsSource="{Binding ListaPartidosJornada}" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
+            <ListView x:Name="ListaPartidos" ItemsSource="{Binding ListaPartidosJornadas}" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding PartidosCommand}" 
@@ -60,7 +68,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <StackPanel Grid.Column="1" Width="900" Height="600" Margin="0,30,0,0">
+            <StackPanel Grid.Column="1" Width="1000" Height="600" Margin="50,30,100,0">
                 <TextBlock Text="PARTIDO" x:Name="p1" FontWeight="Black" HorizontalAlignment="Center" FontSize="30"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -68,8 +76,92 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <TextBlock Text="LOCAL" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,0" FontWeight="Black" FontSize="40"/>
+                    <TextBlock Text="VISITANTE" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Center" Margin="0,0,0,0" FontWeight="Black" FontSize="40"/>
+                    <ComboBox Name="ComboEquipoLocal" Grid.Row="1" Width="100" Height="30" HorizontalAlignment="Center" Margin="0,0,0,0" ItemsSource="{Binding ListaEquipos}" SelectedItem="{Binding CurrentPartido.EquipoLocal, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding UpdateJugadoresClubLocalResultadosCommand}" CommandParameter="{Binding ElementName=vistaResultados}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+
+                    <ComboBox Name="ComboEquipoVisitante" Grid.Row="1" Grid.Column="1" Width="100" Height="30" HorizontalAlignment="Center" Margin="0,0,0,0" ItemsSource="{Binding ListaEquipos}"  SelectedItem="{Binding CurrentPartido.EquipoVisitante, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding UpdateJugadoresClubVisitanteResultadosCommand}" CommandParameter="{Binding ElementName=vistaResultados}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                    <TextBlock x:Name="GolesLocal" Grid.Row="2" Grid.Column="0" Text="0" FontSize="80" HorizontalAlignment="Center" FontWeight="Black" Margin="0,0,0,0"/>
+                    <TextBlock x:Name="GolesVisitante" Grid.Row="2" Text="0" Grid.Column="1" FontSize="80" HorizontalAlignment="Center" FontWeight="Black" Margin="0,0,0,0"/>
+                    
+                    
+                    
+                    
+                    <Button x:Name="AñadirGoleadorLocal" Grid.Row="3" Grid.Column="0"  Width="70" Height="30" Content="AÑADIR" HorizontalAlignment="Right" Command="{Binding AñadirGoleadorLocalCommand}" CommandParameter="{Binding ElementName=vistaResultados}"  Margin="0,0,10,40"/>
+                    <Button x:Name="EliminarGoleadorLocal" Grid.Row="3" Grid.Column="0"  Width="70" Height="30" Content="ELIMINAR" HorizontalAlignment="Right" Command="{Binding EliminarGoleadorLocalCommand}" CommandParameter="{Binding ElementName=vistaResultados}" Margin="0,100,10,40"/>
+                    <Button x:Name="AñadirAmonestadoLocal" Grid.Row="5" Grid.Column="0"  Width="70" Height="30" Content="AÑADIR" HorizontalAlignment="Right" Command="{Binding AñadirAmonestadoLocalCommand}" CommandParameter="{Binding ElementName=vistaResultados}" Margin="0,0,10,40"/>
+                    <Button x:Name="EliminarAmonestadoLocal" Grid.Row="5" Grid.Column="0"  Width="70" Height="30" Content="ELIMINAR" HorizontalAlignment="Right"  Command="{Binding EliminarAmonestadoLocalCommand}" CommandParameter="{Binding ElementName=vistaResultados}" Margin="0,100,10,40"/>
+                    <TextBlock Text="Goleador" Grid.Row="3" Height="40" Width="100" Grid.Column="0" FontSize="15" FontWeight="Black" Margin="80,-70,0,0"/>
+                    <TextBlock Text="Goles" Grid.Row="3" Grid.Column="0"  Height="30" Width="50" FontSize="15" FontWeight="Black" Margin="60,20,0,0"/>
+                    <TextBlock Text="Amonestado" Grid.Row="5" Grid.Column="0"  Height="30" Width="100" FontSize="15" FontWeight="Black" Margin="190,0,0,80"/>
+                    <TextBlock Text="Amarillas" Grid.Row="5" Grid.Column="0"  Height="30" Width="100" FontSize="15" FontWeight="Black" Margin="210,13,0,0"/>
+                    <TextBlock Text="Roja" Grid.Row="5" Grid.Column="0"  Height="30" Width="100" FontSize="15" FontWeight="Black" Margin="230,100,0,0"/>
+                   
+                    <ComboBox x:Name="GoleadorLocal" Grid.Column="0" Grid.Row="3" Width="100" Height="20" Margin="50,0,0,50" ItemsSource="{Binding ListaJugadoresLocal}" SelectedItem="{Binding CurrentGoleadorLocal.Jugador}"></ComboBox>
+                    <ComboBox x:Name="GolesGoleadorLocal" Grid.Column="0" Grid.Row="3" Width="100" Height="20" Margin="50,50,0,0"  SelectedItem="{Binding CurrentGoleadorLocal.GolesPartido}">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="6"/>
+                        <ComboBoxItem Content="7"/>
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="9"/>
+                        <ComboBoxItem Content="10"/>
+                    </ComboBox>
+                    <ComboBox x:Name="AmonestadoLocal" Grid.Column="0" Grid.Row="5" Width="100" Height="20" Margin="190,0,0,50" ItemsSource="{Binding ListaJugadoresLocal}" SelectedItem="{Binding CurrentAmonestadoLocal.Jugador}"></ComboBox>
+                    <ComboBox x:Name="TAAmonestadoLocal" Grid.Column="0" Grid.Row="5" Width="100" Height="20" Margin="190,40,0,0"  SelectedItem="{Binding CurrentAmonestadoLocal.TAmarilla}">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                       
+                    </ComboBox>
+                    <ComboBox x:Name="TRAmonestadoLocal" Grid.Column="0" Grid.Row="5" Width="100" Height="20" Margin="190,130,0,0"  SelectedItem="{Binding CurrentAmonestadoLocal.TRoja}">
+                        <ComboBoxItem Content="1"/>
+                        
+
+                    </ComboBox>
+                    <ListView x:Name="ListaGoleadoresLocal" Grid.Row="3" Grid.Column="0" SelectedItem="{Binding CurrentGoleadorLocal}" ItemsSource="{Binding ListaGoleadoresLocal}" HorizontalAlignment="Left" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="200" Height="150" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
+
+                        <ListView.View >
+                            <GridView >
+                                <GridViewColumn Header="Nombre" Width="100" DisplayMemberBinding="{Binding Path=Jugador.Nombre}"/>
+                                <GridViewColumn Header="Goles" Width="85" DisplayMemberBinding="{Binding Path=GolesPartido}"/>
+                                
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="ListaAmonestadosLocal" Grid.Row="5" Grid.Column="0" SelectedItem="{Binding CurrentAmonestadoLocal}" ItemsSource="{Binding ListaAmonestadosLocal}" Background="#00000000" BorderBrush="#00000000" Foreground="Black" HorizontalAlignment="Left" SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="280" Height="150" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
+                       
+                        <ListView.View >
+                            <GridView >
+                                <GridViewColumn Header="Nombre" Width="100" DisplayMemberBinding="{Binding Path=Jugador.Nombre}"/>
+                                <GridViewColumn Header="T/A" Width="85" DisplayMemberBinding="{Binding Path=TAmarilla}"/>
+                                <GridViewColumn Header="T/R" Width="85" DisplayMemberBinding="{Binding Path=TRoja}" />
+                                
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </StackPanel>
         </Grid>

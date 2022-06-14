@@ -23,8 +23,11 @@ namespace LaLiga.Comandos
         {
             if (parameter.Equals("equipo"))
             {
-                equiposViewModel.ListaLigas = DataSetHandler.getAllLigas();
-
+                try
+                {
+                    equiposViewModel.ListaLigas = DataSetHandler.getAllLigas();
+                }
+                catch { }
             }
         }
         private EquiposViewModel equiposViewModel { get; set; }

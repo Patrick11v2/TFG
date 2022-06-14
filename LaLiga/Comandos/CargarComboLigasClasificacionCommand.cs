@@ -20,8 +20,13 @@ namespace LaLiga.Comandos
 
         public void Execute(object parameter)
         {
-           clasificacionViewModel.ListaLigas = DataSetHandler.getAllLigas();
-        }
+            try
+            {
+                clasificacionViewModel.ListaLigas = DataSetHandler.getAllLigas();
+
+            }
+            catch { }            }
+
         private ClasificacionViewModel clasificacionViewModel { get; set; }
 
         public CargarComboLigasClasificacionCommand(ClasificacionViewModel ClasificacionViewModel) { this.clasificacionViewModel = ClasificacionViewModel; }
