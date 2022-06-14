@@ -41,6 +41,37 @@ namespace LaLiga.Services.DataSet
             }
             return listaLigas;
         }
+        public static ObservableCollection<int> getJornadas(LigaModel liga)
+        {
+            DataTable LIGAS = LIGASAdapter.GetData();
+            ObservableCollection<int> listaJornadas = new ObservableCollection<int>();
+            
+            foreach (DataRow row in LIGAS.Rows)
+            {
+                if((int)row["Id_Liga"] == liga.ID_LIGA)
+                {
+                    int n = 1;
+                    if(liga.Equipos %2 == 0) { 
+                    while(n <= (liga.Equipos - 1) * 2)
+                    {
+                        listaJornadas.Add(n);
+                        n++;
+                    }
+                    }
+                    else
+                    {
+                        while (n <=(liga.Equipos * 2))
+                        {
+                            listaJornadas.Add(n);
+                            n++;
+                        }
+                    }
+                }
+
+            }
+            return listaJornadas;
+
+        }
         public static ObservableCollection<EquipoModel> getAllEquipos()
         {
             DataTable EQUIPOS = CLUBESTAdapter.GetData();
@@ -279,7 +310,7 @@ namespace LaLiga.Services.DataSet
             {
                 foreach (DataRow row in LIGAS.Rows)
                 {
-                    if (row["NombreLiga"].ToString() == liga.Nombre.ToString() || (int)row["NEquipos"] > 20)
+                    if (row["NombreLiga"].ToString() == liga.Nombre.ToString() || (int)row["NEquipos"] > 20 || (int)row["NEquipos"] <3)
                     {
                         return false;
                     }

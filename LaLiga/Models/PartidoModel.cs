@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace LaLiga.Models
 {
-    class PartidoModel : INotifyPropertyChanged
+    class PartidoModel : INotifyPropertyChanged, ICloneable
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(String propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public object Clone()
+        {
+
+            return MemberwiseClone();
         }
 
         private int id_partido;

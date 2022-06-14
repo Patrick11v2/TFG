@@ -102,6 +102,7 @@
                 <StackPanel HorizontalAlignment="Center" Margin="0,50,0,0">
                     <TextBlock Text=" *No se puede crear ligas con el mismo nombre. " FontWeight="Black" />
                     <TextBlock Text=" *No se puede crear ligas con mas de 20 equipos." FontWeight="Black"/>
+                    <TextBlock Text=" *No se puede crear ligas con menos de 3 equipos." FontWeight="Black"/>
                     <TextBlock Text=" *No se puede eliminar una liga si esta contiene equipos." FontWeight="Black"/>
 
 

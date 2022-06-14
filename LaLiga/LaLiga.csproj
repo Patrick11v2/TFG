@@ -96,9 +96,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Comandos\CargarComboEquiposJugadoresCommand.cs" />
+    <Compile Include="Comandos\CargarComboJornadasResultadosCommand.cs" />
     <Compile Include="Comandos\CargarComboLigasClasificacionCommand.cs" />
     <Compile Include="Comandos\CargarComboLigasEquiposCommand.cs" />
     <Compile Include="Comandos\CargarComboLigasJugadoresCommand.cs" />
+    <Compile Include="Comandos\CargarComboLigasResultadosCommand.cs" />
     <Compile Include="Comandos\EditarEquipoCommand.cs" />
     <Compile Include="Comandos\EditarJugadorCommand.cs" />
     <Compile Include="Comandos\EditarLigaCommand.cs" />
