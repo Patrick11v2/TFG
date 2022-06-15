@@ -114,6 +114,7 @@ namespace LaLiga.ViewModels
         }
 
         private int currentIdJornada;
+
         public int CurrentIdJornada { get { return currentIdJornada; }
             set { currentIdJornada = value; OnPropertyChanged(nameof(CurrentIdJornada)); }  
         }
@@ -144,6 +145,38 @@ namespace LaLiga.ViewModels
                 currentGoleadorLocal = value;
                 OnPropertyChanged(nameof(CurrentGoleadorLocal));
             }
+        }
+        private ObservableCollection<int> goles;
+        public ObservableCollection<int> Goles
+        {
+            get => goles is null ? goles = new ObservableCollection<int>() : goles;
+            set
+            {
+                goles = value;
+                OnPropertyChanged(nameof(Goles));
+            }
+        }
+        private ObservableCollection<int> amarillas;
+        public ObservableCollection<int> Amarillas
+        {
+            get => amarillas is null ? amarillas = new ObservableCollection<int>() : amarillas;
+            set
+            {
+                amarillas = value;
+                OnPropertyChanged(nameof(Amarillas));
+            }
+        }
+        private ObservableCollection<int> rojas;
+        public ObservableCollection<int> Rojas
+        {
+            get => rojas is null ? rojas = new ObservableCollection<int>() : rojas;
+            set
+            {
+                rojas = value;
+                OnPropertyChanged(nameof(Rojas));
+            }
+
+
         }
         private AnotadorModel currentGoleadorVisitante;
         public AnotadorModel CurrentGoleadorVisitante
@@ -183,7 +216,19 @@ namespace LaLiga.ViewModels
         public ICommand PartidosCommand { get; set; }
         public ICommand UpdateJugadoresClubVisitanteResultadosCommand { set; get; }
         public ICommand UpdateJugadoresClubLocalResultadosCommand { set; get; }
-        public ICommnad AñadirGoleadorLocalCommand { get; set; }
+        public ICommand AñadirGoleadorLocalCommand { get; set; }
+        public ICommand UpdateGolesResultadosCommand { set; get; }
+        public ICommand EliminarGoleadorLocalCommand { set; get; }
+        public ICommand AñadirAmonestadoLocalCommand { set; get; }
+        public ICommand EliminarAmonestadoLocalCommand { get; set; }
+        public ICommand AñadirGoleadorVisitanteCommand { get; set; }
+        public ICommand EliminarGoleadorVisitanteCommand { set; get; }
+        public ICommand AñadirAmonestadoVisitanteCommand { set; get; }
+        public ICommand EliminarAmonestadoVisitanteCommand { get; set; }
+        public ICommand InsertarAmonestadosCommand { get; set; }
+
+        public ICommand CrearPartidoCommand { get; set; }
+        public ICommand InsertarGoleadoresCommand { get; set; }
 
         public ResultadosViewModel()
         {
@@ -195,7 +240,18 @@ namespace LaLiga.ViewModels
             PartidosCommand = new PartidosCommand(this);
             UpdateJugadoresClubLocalResultadosCommand = new UpdateJugadoresClubLocalResultadosCommand(this);
             UpdateJugadoresClubVisitanteResultadosCommand = new UpdateJugadoresClubVisitanteResultadosCommand(this);
-            
+            UpdateGolesResultadosCommand = new UpdateGolesResultadosCommand(this);
+            EliminarGoleadorLocalCommand = new EliminarGoleadorLocalCommand(this);
+            AñadirAmonestadoLocalCommand = new AñadirAmonestadoLocalCommand(this);
+            EliminarAmonestadoLocalCommand = new EliminarAmonestadoLocalCommand(this);
+            EliminarAmonestadoVisitanteCommand = new EliminarAmonestadoVisitanteCommand(this);
+            AñadirAmonestadoVisitanteCommand = new AñadirAmonestadoVisitanteCommand(this);
+            EliminarGoleadorVisitanteCommand = new EliminarGoleadorVisitanteCommand(this);
+            AñadirGoleadorVisitanteCommand = new AñadirGoleadorVisitanteCommand(this);
+            InsertarGoleadoresCommand = new InsertarGoleadoresCommand(this);
+            InsertarAmonestadosCommand = new InsertarAmonestadosCommand(this);
+            CrearPartidoCommand = new CrearPartidoCommand(this);
+
 
         }
     }

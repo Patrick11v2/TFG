@@ -25,7 +25,7 @@ namespace LaLiga.Models
         public int TAmarilla { get { return tAmarilla; } set { tAmarilla = value; OnPropertyChanged(nameof(TAmarilla)); } }
 
         private int tRoja;
-        public int TRoja { get { return tRoja; } set { TRoja = value; OnPropertyChanged(nameof(TRoja)); } }
+        public int TRoja { get { return tRoja; } set { tRoja = value; OnPropertyChanged(nameof(TRoja)); } }
 
         public AmonestadoModel() { }
 

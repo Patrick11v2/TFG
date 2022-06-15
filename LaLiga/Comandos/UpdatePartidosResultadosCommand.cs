@@ -34,7 +34,7 @@ namespace LaLiga.Comandos
                     listaPartidosPorJornada = DataSetHandler.getAllPartidos();
                     foreach (PartidoModel partido in listaPartidosPorJornada)
                     {
-                        if(partido.Id_jornada == jornada)
+                        if(partido.Id_jornada == jornada && partido.LigaPartido.ID_LIGA == ((ResultadosViewModel)vista.DataContext).CurrentLiga.ID_LIGA )
                         {
                             resultadosViewModel.ListaPartidosJornadas.Add(partido);
                         }

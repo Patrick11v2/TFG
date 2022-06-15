@@ -25,20 +25,27 @@ namespace LaLiga.Comandos
         {
             ResultadosView vista = (ResultadosView)parameter;
             ObservableCollection<AnotadorModel> listaGoleadoresLocal1 = resultadosViewModel.ListaGoleadoresLocal;
+            AnotadorModel anotador = ((ResultadosViewModel)vista.DataContext).CurrentGoleadorLocal;
             bool jrepetido = false;
             foreach(AnotadorModel anotadorModel in listaGoleadoresLocal1)
             {
-                if(anotadorModel.Jugador.ID_jugador == ((ResultadosViewModel)vista.DataContext).CurrentGoleadorLocal.Jugador.ID_jugador)
+                if(anotadorModel.Jugador.ID_jugador == anotador.Jugador.ID_jugador)
                 {   jrepetido=true;
                     
                     break;
                 }
+                else {  }
             }
             if(jrepetido == false)
             {
-                resultadosViewModel.ListaGoleadoresLocal.Add(((ResultadosViewModel)vista.DataContext).CurrentGoleadorLocal);
-            }else { MessageBox.Show("Este jugador ya esta como anotador"); }
-
+                listaGoleadoresLocal1.Add(anotador);
+                resultadosViewModel.ListaGoleadoresLocal = listaGoleadoresLocal1;
+                resultadosViewModel.CurrentGoleadorLocal = new AnotadorModel();
+            }
+            else { MessageBox.Show("Este jugador ya esta como anotador"); }
+            resultadosViewModel.UpdateGolesResultadosCommand.Execute(vista);
+            vista.GolesGoleadorLocal.SelectedIndex = -1;
+            
         }
         private ResultadosViewModel resultadosViewModel { get; set; }
 

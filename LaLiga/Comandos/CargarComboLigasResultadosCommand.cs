@@ -20,6 +20,17 @@ namespace LaLiga.Comandos
 
         public void Execute(object parameter)
         {
+            int n = 1;
+            while(n<= 10)
+            {
+                resultadosViewModel.Goles.Add(n);
+                n++;
+            }
+
+            resultadosViewModel.Amarillas.Add(1);
+            resultadosViewModel.Amarillas.Add(2);
+
+            resultadosViewModel.Rojas.Add(1);
             resultadosViewModel.ListaLigas = DataSetHandler.getAllLigas();
         }
 
