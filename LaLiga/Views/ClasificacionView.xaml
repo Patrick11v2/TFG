@@ -29,7 +29,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="CLASIFICACIÓN"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="30" FontWeight="Black"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="CLASIFICACIÓN"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="30" FontWeight="Black" Margin="170,0,0,0"/>
             <ComboBox Name="comboLigas" Grid.Row="0" HorizontalAlignment="Right" Background="Transparent" Width="200 "  Height="25" BorderBrush="Transparent"
                       ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}" >
 

@@ -150,12 +150,74 @@ namespace LaLiga.Services.DataSet
                     if (equipo.ID_CLUB == (int)row["Id_Club1"])
                     {
                         myJugador.Equipo = equipo;
-                    }
 
+                    }
                 }
 
+                listaJugadores.Add(myJugador);
+                
+            }
+            return listaJugadores;
+        }
+        public static ObservableCollection<JugadorModel> getAllJugadoresByGoles()
+        {
+            DataTable JUGADORES = JUGADORESTAdapter.GetDataByGoles();
+            ObservableCollection<JugadorModel> listaJugadores = new ObservableCollection<JugadorModel>();
+            ObservableCollection<EquipoModel> listaEquipos = getAllEquipos();
+
+            foreach (DataRow row in JUGADORES.Rows)
+            {
+                JugadorModel myJugador = new JugadorModel();
+                myJugador.ID_jugador = (int)row["Id_Jugador"];
+                myJugador.NJugador = row["NJugador"].ToString();
+                myJugador.AJugador = row["AJugador"].ToString();
+                myJugador.Posicion = row["Posicion"].ToString();
+                myJugador.TAmarillas = (int)row["TAmarillas"];
+                myJugador.TRojas = (int)row["TRojas"];
+                myJugador.Goles = (int)row["Goles"];
+                myJugador.Numero = (int)row["Numero"];
+                foreach (EquipoModel equipo in listaEquipos)
+                {
+                    if (equipo.ID_CLUB == (int)row["Id_Club1"])
+                    {
+                        myJugador.Equipo = equipo;
+
+                    }
+                }
 
                 listaJugadores.Add(myJugador);
+
+            }
+            return listaJugadores;
+        }
+        public static ObservableCollection<JugadorModel> getAllJugadoresByTarjetas()
+        {
+            DataTable JUGADORES = JUGADORESTAdapter.GetDataByTarjetas();
+            ObservableCollection<JugadorModel> listaJugadores = new ObservableCollection<JugadorModel>();
+            ObservableCollection<EquipoModel> listaEquipos = getAllEquipos();
+
+            foreach (DataRow row in JUGADORES.Rows)
+            {
+                JugadorModel myJugador = new JugadorModel();
+                myJugador.ID_jugador = (int)row["Id_Jugador"];
+                myJugador.NJugador = row["NJugador"].ToString();
+                myJugador.AJugador = row["AJugador"].ToString();
+                myJugador.Posicion = row["Posicion"].ToString();
+                myJugador.TAmarillas = (int)row["TAmarillas"];
+                myJugador.TRojas = (int)row["TRojas"];
+                myJugador.Goles = (int)row["Goles"];
+                myJugador.Numero = (int)row["Numero"];
+                foreach (EquipoModel equipo in listaEquipos)
+                {
+                    if (equipo.ID_CLUB == (int)row["Id_Club1"])
+                    {
+                        myJugador.Equipo = equipo;
+
+                    }
+                }
+
+                listaJugadores.Add(myJugador);
+
             }
             return listaJugadores;
         }
@@ -241,7 +303,7 @@ namespace LaLiga.Services.DataSet
            
             ObservableCollection<JugadorModel> listaGoleadoresLiga = new ObservableCollection<JugadorModel>();
            
-            ObservableCollection<JugadorModel> listaJugadores = getAllJugadores();
+            ObservableCollection<JugadorModel> listaJugadores = getAllJugadoresByGoles();
 
           
                 foreach(JugadorModel jugador in listaJugadores)
@@ -259,12 +321,12 @@ namespace LaLiga.Services.DataSet
 
             ObservableCollection<JugadorModel> listaAmonestadosLiga = new ObservableCollection<JugadorModel>();
 
-            ObservableCollection<JugadorModel> listaJugadores = getAllJugadores();
+            ObservableCollection<JugadorModel> listaJugadores = getAllJugadoresByTarjetas();
 
 
             foreach (JugadorModel jugador in listaJugadores)
             {
-                if (jugador.TAmarillas > 0 || jugador.TRojas >0 && (jugador.Equipo.ID_ligas == currentLiga.ID_LIGA))
+                if ((jugador.TAmarillas > 0 || jugador.TRojas >0) && (jugador.Equipo.ID_ligas == currentLiga.ID_LIGA))
                 {
                     listaAmonestadosLiga.Add(jugador);
                 }
@@ -591,7 +653,9 @@ namespace LaLiga.Services.DataSet
         public static bool insertarAnotador(AnotadorModel anotador)
         {
             DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
+            
             DataTable ANOTADORES = ANOTADORESAdapter.GetData();
+           
             DataTable JUGADORES = JUGADORESTAdapter.GetData();
             try
             {
@@ -623,8 +687,8 @@ namespace LaLiga.Services.DataSet
                                 myJugador.Numero = (int)row2["Numero"];
                                 int equipo = (int)row2["Id_Club1"];
                                 int goles = myJugador.Goles + anotador.GolesPartido;
-                                JUGADORESTAdapter.Update(myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, myJugador.TAmarillas, myJugador.TRojas, goles, myJugador.Numero, equipo,
-                                    myJugador.ID_jugador, myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, myJugador.TAmarillas, myJugador.TRojas, myJugador.Goles, myJugador.Numero, myJugador.ID_jugador);
+                                JUGADORESTAdapter.UpdateQuery( myJugador.TAmarillas, myJugador.TRojas, goles, 
+                                    myJugador.ID_jugador);
                             }
                         }
 
@@ -673,9 +737,9 @@ namespace LaLiga.Services.DataSet
                             int ta = myJugador.TAmarillas + amonestado.TAmarilla;
                             int tr = myJugador.TRojas + amonestado.TRoja;
                                 myJugador.Numero = (int)row2["Numero"];
-                                JUGADORESTAdapter.Update(myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, ta, tr, myJugador.Goles , myJugador.Numero, equipo,
-                                    myJugador.ID_jugador, myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, myJugador.TAmarillas, myJugador.TRojas, myJugador.Goles, myJugador.Numero, myJugador.ID_jugador);
-                            }
+                            JUGADORESTAdapter.UpdateQuery(ta, tr, myJugador.Goles,
+                                 myJugador.ID_jugador);
+                        }
                         }
 
                         return true;
