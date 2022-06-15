@@ -331,15 +331,22 @@ namespace LaLiga.Services.DataSet
             DataTable EQUIPOS = CLUBESTAdapter.GetData();
             int np = 0;
           foreach(DataRow row1 in PARTIDOS.Rows)
-                {
+            {
+                try { 
                     if((int)row1["Id_Liga2"] == partido.LigaPartido.ID_LIGA &&  (int)row1["Id_ELocal"]==partido.EquipoLocal.ID_CLUB && (int)row1["Id_EVisitante"] == partido.EquipoVisitante.ID_CLUB && partido.Id_jornada ==(int)row1["Id_Jornada"])
                     {
                         return false;
+                    }else if((partido.EquipoLocal.ID_CLUB == (int)row1["Id_ELocal"] && (int)row1["Id_Liga2"] == partido.LigaPartido.ID_LIGA && partido.Id_jornada == (int)row1["Id_Jornada"]) || (partido.EquipoLocal.ID_CLUB == (int)row1["Id_EVisitante"] && (int)row1["Id_Liga2"] == partido.LigaPartido.ID_LIGA && partido.Id_jornada == (int)row1["Id_Jornada"])  ){
+                    return false;
+                    }else if ((partido.EquipoVisitante.ID_CLUB == (int)row1["Id_ELocal"] && (int)row1["Id_Liga2"] == partido.LigaPartido.ID_LIGA && partido.Id_jornada == (int)row1["Id_Jornada"]) || (partido.EquipoVisitante.ID_CLUB == (int)row1["Id_EVisitante"] && (int)row1["Id_Liga2"] == partido.LigaPartido.ID_LIGA && partido.Id_jornada == (int)row1["Id_Jornada"])){
+                    return false;
                     }
-                    if(partido.Id_jornada == (int)row1["Id_Jornada"] && partido.LigaPartido.ID_LIGA == (int)row1["Id_Liga2"])
+                   if (partido.Id_jornada == (int)row1["Id_Jornada"] && partido.LigaPartido.ID_LIGA == (int)row1["Id_Liga2"])
                     {
                         np++;
                     }
+                }
+                catch { }
                 }
             if((partido.LigaPartido.Equipos %2) == 0)
                 {
@@ -354,10 +361,14 @@ namespace LaLiga.Services.DataSet
                     {
                         return false;
                     }
-                }
+            }
+            try { 
                 PARTIDOSTAdapter.Insert(partido.EquipoLocal.ID_CLUB, partido.EquipoVisitante.ID_CLUB, partido.GLocal, partido.GVisitante, partido.TRLocal, partido.TALocal, partido.TRVisitante, partido.TAVisitante,
                     partido.Id_jornada, partido.LigaPartido.ID_LIGA);
-                if(partido.GLocal > partido.GVisitante)
+            }
+            catch { }
+            if (partido.GLocal > partido.GVisitante)
+           
                 {
                     foreach (DataRow row in EQUIPOS.Rows)
                     {
@@ -367,15 +378,23 @@ namespace LaLiga.Services.DataSet
                             myEquipo.ID_CLUB = (int)row["Id_Club"];
                             myEquipo.Nombre = row["NombreClub"].ToString();
                             myEquipo.ID_ligas = (int)row["Id_Liga1"];
-                            partido.EquipoLocal.GolesF = partido.EquipoLocal.GolesF + partido.GLocal;
-                            partido.EquipoLocal.GolesC = partido.EquipoLocal.GolesC + partido.GVisitante;
-                            partido.EquipoLocal.TAmarillas = partido.EquipoLocal.TAmarillas + partido.TALocal;
-                            partido.EquipoLocal.TRojas = partido.EquipoLocal.TRojas + partido.TRLocal;
-                            partido.EquipoLocal.Vctorias = partido.EquipoLocal.Vctorias + 1;
+                            myEquipo.GolesC = (int)row["GContra"];
+                            myEquipo.GolesF = (int)row["GFavor"];
+                            myEquipo.TAmarillas = (int)row["TAmarillas"];
+                            myEquipo.TRojas = (int)row["TRojas"];
+                            myEquipo.Vctorias = (int)row["Victorias"];
+                            partido.EquipoLocal.GolesF = myEquipo.GolesF + partido.GLocal;
+                            partido.EquipoLocal.GolesC = myEquipo.GolesC+ partido.GVisitante;
+                            partido.EquipoLocal.TAmarillas = myEquipo.TAmarillas + partido.TALocal;
+                            partido.EquipoLocal.TRojas = myEquipo.TRojas + partido.TRLocal;
+                            partido.EquipoLocal.Vctorias = myEquipo.Vctorias+ 1;
+                        
 
-                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.NJugadores, partido.EquipoLocal.Vctorias, myEquipo.Derrotas, myEquipo.Empates
-                                , partido.EquipoLocal.TAmarillas, partido.EquipoLocal.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
-                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        CLUBESTAdapter.UpdateEquiposResultados(partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, partido.EquipoLocal.Vctorias,myEquipo.Derrotas, myEquipo.Empates, partido.EquipoLocal.TAmarillas
+                                , partido.EquipoLocal.TRojas, myEquipo.ID_CLUB);
+                          
+                     
+                        break;
                         }
                     }
                     foreach (DataRow row in EQUIPOS.Rows)
@@ -386,20 +405,85 @@ namespace LaLiga.Services.DataSet
                             myEquipo.ID_CLUB = (int)row["Id_Club"];
                             myEquipo.Nombre = row["NombreClub"].ToString();
                             myEquipo.ID_ligas = (int)row["Id_Liga1"];
-                            partido.EquipoVisitante.GolesF = partido.EquipoVisitante.GolesF + partido.GVisitante;
-                            partido.EquipoVisitante.GolesC = partido.EquipoVisitante.GolesC + partido.GLocal;
-                            partido.EquipoVisitante.TAmarillas = partido.EquipoVisitante.TAmarillas + partido.TAVisitante;
-                            partido.EquipoVisitante.TRojas = partido.EquipoVisitante.TRojas + partido.TRVisitante;
-                            partido.EquipoVisitante.Vctorias = partido.EquipoVisitante.Derrotas + 1;
+                            myEquipo.GolesC = (int)row["GContra"];
+                            myEquipo.GolesF = (int)row["GFavor"];
+                            myEquipo.TAmarillas = (int)row["TAmarillas"];
+                            myEquipo.TRojas = (int)row["TRojas"];
+                            myEquipo.Derrotas = (int)row["Derrotas"];
+                            partido.EquipoVisitante.GolesF = myEquipo.GolesF + partido.GVisitante;
+                            partido.EquipoVisitante.GolesC = myEquipo.GolesC+ partido.GLocal;
+                            partido.EquipoVisitante.TAmarillas = myEquipo.TAmarillas + partido.TAVisitante;
+                            partido.EquipoVisitante.TRojas = myEquipo.TRojas + partido.TRVisitante;
+                            partido.EquipoVisitante.Derrotas = myEquipo.Derrotas + 1;
 
-                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, partido.EquipoVisitante.Derrotas, myEquipo.Empates
-                                , partido.EquipoVisitante.TAmarillas, partido.EquipoVisitante.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
-                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        CLUBESTAdapter.UpdateEquiposResultados(partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC,myEquipo.Vctorias, partido.EquipoVisitante.Derrotas, myEquipo.Empates, partido.EquipoVisitante.TAmarillas
+                                 , partido.EquipoVisitante.TRojas, myEquipo.ID_CLUB);
+                      
+                        break;
                         }
                     }
+                MessageBox.Show("Gana Local");
                 }
-                if (partido.GLocal == partido.GVisitante)
+                 else if (partido.GLocal == partido.GVisitante)
 
+                {
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                    bool canUpdate = false;
+                    EquipoModel myEquipo = new EquipoModel();
+                    if ((int)row["Id_Club"] == partido.EquipoLocal.ID_CLUB)
+                        {
+                            
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            myEquipo.GolesC = (int)row["GContra"];
+                            myEquipo.GolesF = (int)row["GFavor"];
+                            myEquipo.TAmarillas = (int)row["TAmarillas"];
+                            myEquipo.TRojas = (int)row["TRojas"];
+                            myEquipo.Empates = (int)row["Empates"];
+                            partido.EquipoLocal.GolesF = myEquipo.GolesF + partido.GLocal;
+                            partido.EquipoLocal.GolesC = myEquipo.GolesC + partido.GVisitante;
+                            partido.EquipoLocal.TAmarillas = myEquipo.TAmarillas + partido.TALocal;
+                            partido.EquipoLocal.TRojas = myEquipo.TRojas + partido.TRLocal;
+                            partido.EquipoLocal.Empates = myEquipo.Empates + 1;
+
+
+                        CLUBESTAdapter.UpdateEquiposResultados(partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.Vctorias, myEquipo.Derrotas, partido.EquipoLocal.Empates, partido.EquipoLocal.TAmarillas
+                                   , partido.EquipoLocal.TRojas, myEquipo.ID_CLUB);
+                        break;
+
+
+                    }
+               
+                    }
+                    foreach (DataRow row in EQUIPOS.Rows)
+                    {
+                        if ((int)row["Id_Club"] == partido.EquipoVisitante.ID_CLUB)
+                        {
+                            EquipoModel myEquipo = new EquipoModel();
+                            myEquipo.ID_CLUB = (int)row["Id_Club"];
+                            myEquipo.Nombre = row["NombreClub"].ToString();
+                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
+                            myEquipo.GolesC = (int)row["GContra"];
+                            myEquipo.GolesF = (int)row["GFavor"];
+                            myEquipo.TAmarillas = (int)row["TAmarillas"];
+                            myEquipo.TRojas = (int)row["TRojas"];
+                            myEquipo.Empates = (int)row["Empates"];
+                            partido.EquipoVisitante.GolesF = myEquipo.GolesF + partido.GVisitante;
+                            partido.EquipoVisitante.GolesC = myEquipo.GolesC + partido.GLocal;
+                            partido.EquipoVisitante.TAmarillas = myEquipo.TAmarillas + partido.TAVisitante;
+                            partido.EquipoVisitante.TRojas = myEquipo.TRojas + partido.TRVisitante;
+                            partido.EquipoVisitante.Empates = partido.EquipoVisitante.Empates  + 1;
+
+                        CLUBESTAdapter.UpdateEquiposResultados(partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, myEquipo.Vctorias, myEquipo.Derrotas, partido.EquipoVisitante.Empates, partido.EquipoVisitante.TAmarillas
+                                    , partido.EquipoVisitante.TRojas, myEquipo.ID_CLUB);
+                        break;
+                        }
+                    }
+                MessageBox.Show("Empate");
+                 }
+               else if(partido.GLocal < partido.GVisitante)
                 {
                     foreach (DataRow row in EQUIPOS.Rows)
                     {
@@ -409,15 +493,20 @@ namespace LaLiga.Services.DataSet
                             myEquipo.ID_CLUB = (int)row["Id_Club"];
                             myEquipo.Nombre = row["NombreClub"].ToString();
                             myEquipo.ID_ligas = (int)row["Id_Liga1"];
-                            partido.EquipoLocal.GolesF = partido.EquipoLocal.GolesF + partido.GLocal;
-                            partido.EquipoLocal.GolesC = partido.EquipoLocal.GolesC + partido.GVisitante;
-                            partido.EquipoLocal.TAmarillas = partido.EquipoLocal.TAmarillas + partido.TALocal;
-                            partido.EquipoLocal.TRojas = partido.EquipoLocal.TRojas + partido.TRLocal;
-                            partido.EquipoLocal.Vctorias = partido.EquipoLocal.Empates + 1;
+                            myEquipo.GolesC = (int)row["GContra"];
+                            myEquipo.GolesF = (int)row["GFavor"];
+                            myEquipo.TAmarillas = (int)row["TAmarillas"];
+                            myEquipo.TRojas = (int)row["TRojas"];
+                            myEquipo.Derrotas = (int)row["Derrotas"];
+                            partido.EquipoLocal.GolesF = myEquipo.GolesF + partido.GLocal;
+                            partido.EquipoLocal.GolesC = myEquipo.GolesC + partido.GVisitante;
+                            partido.EquipoLocal.TAmarillas = myEquipo.TAmarillas + partido.TALocal;
+                            partido.EquipoLocal.TRojas = myEquipo.TRojas + partido.TRLocal;
+                            partido.EquipoLocal.Derrotas = myEquipo.Derrotas + 1;
 
-                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, myEquipo.Derrotas, partido.EquipoLocal.Empates
-                                , partido.EquipoLocal.TAmarillas, partido.EquipoLocal.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
-                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        CLUBESTAdapter.UpdateEquiposResultados(partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.Vctorias, partido.EquipoLocal.Derrotas, myEquipo.Empates, partido.EquipoLocal.TAmarillas
+                              , partido.EquipoLocal.TRojas, myEquipo.ID_CLUB);
+                        break;
                         }
                     }
                     foreach (DataRow row in EQUIPOS.Rows)
@@ -428,59 +517,29 @@ namespace LaLiga.Services.DataSet
                             myEquipo.ID_CLUB = (int)row["Id_Club"];
                             myEquipo.Nombre = row["NombreClub"].ToString();
                             myEquipo.ID_ligas = (int)row["Id_Liga1"];
-                            partido.EquipoVisitante.GolesF = partido.EquipoVisitante.GolesF + partido.GVisitante;
-                            partido.EquipoVisitante.GolesC = partido.EquipoVisitante.GolesC + partido.GLocal;
-                            partido.EquipoVisitante.TAmarillas = partido.EquipoVisitante.TAmarillas + partido.TAVisitante;
-                            partido.EquipoVisitante.TRojas = partido.EquipoVisitante.TRojas + partido.TRVisitante;
-                            partido.EquipoVisitante.Vctorias = partido.EquipoVisitante.Empates + 1;
+                            myEquipo.GolesC = (int)row["GContra"];
+                            myEquipo.GolesF = (int)row["GFavor"];
+                            myEquipo.TAmarillas = (int)row["TAmarillas"];
+                            myEquipo.TRojas = (int)row["TRojas"];
+                            myEquipo.Vctorias = (int)row["Victorias"];
+                            partido.EquipoVisitante.GolesF = myEquipo.GolesF + partido.GVisitante;
+                            partido.EquipoVisitante.GolesC = myEquipo.GolesC + partido.GLocal;
+                            partido.EquipoVisitante.TAmarillas = myEquipo.TAmarillas + partido.TAVisitante;
+                            partido.EquipoVisitante.TRojas = myEquipo.TRojas + partido.TRVisitante;
+                            partido.EquipoVisitante.Vctorias = myEquipo.Vctorias + 1;
 
-                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, myEquipo.Derrotas, partido.EquipoVisitante.Empates
-                                , partido.EquipoVisitante.TAmarillas, partido.EquipoVisitante.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
-                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
+                        CLUBESTAdapter.UpdateEquiposResultados(partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, partido.EquipoVisitante.Vctorias, myEquipo.Derrotas, myEquipo.Empates, partido.EquipoVisitante.TAmarillas
+                            , partido.EquipoVisitante.TRojas, myEquipo.ID_CLUB);
+                        break;
                         }
                     }
-                }
-                if(partido.GLocal < partido.GVisitante)
-                {
-                    foreach (DataRow row in EQUIPOS.Rows)
-                    {
-                        if ((int)row["Id_Club"] == partido.EquipoLocal.ID_CLUB)
-                        {
-                            EquipoModel myEquipo = new EquipoModel();
-                            myEquipo.ID_CLUB = (int)row["Id_Club"];
-                            myEquipo.Nombre = row["NombreClub"].ToString();
-                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
-                            partido.EquipoLocal.GolesF = partido.EquipoLocal.GolesF + partido.GLocal;
-                            partido.EquipoLocal.GolesC = partido.EquipoLocal.GolesC + partido.GVisitante;
-                            partido.EquipoLocal.TAmarillas = partido.EquipoLocal.TAmarillas + partido.TALocal;
-                            partido.EquipoLocal.TRojas = partido.EquipoLocal.TRojas + partido.TRLocal;
-                            partido.EquipoLocal.Vctorias = partido.EquipoLocal.Derrotas + 1;
+                MessageBox.Show("Gana Visitante");
+            }
+            else
+            {
+                MessageBox.Show("No update");
+            }
 
-                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoLocal.GolesF, partido.EquipoLocal.GolesC, myEquipo.NJugadores, myEquipo.Vctorias, partido.EquipoLocal.Derrotas, myEquipo.Empates
-                                , partido.EquipoLocal.TAmarillas, partido.EquipoLocal.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
-                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
-                        }
-                    }
-                    foreach (DataRow row in EQUIPOS.Rows)
-                    {
-                        if ((int)row["Id_Club"] == partido.EquipoVisitante.ID_CLUB)
-                        {
-                            EquipoModel myEquipo = new EquipoModel();
-                            myEquipo.ID_CLUB = (int)row["Id_Club"];
-                            myEquipo.Nombre = row["NombreClub"].ToString();
-                            myEquipo.ID_ligas = (int)row["Id_Liga1"];
-                            partido.EquipoVisitante.GolesF = partido.EquipoVisitante.GolesF + partido.GVisitante;
-                            partido.EquipoVisitante.GolesC = partido.EquipoVisitante.GolesC + partido.GLocal;
-                            partido.EquipoVisitante.TAmarillas = partido.EquipoVisitante.TAmarillas + partido.TAVisitante;
-                            partido.EquipoVisitante.TRojas = partido.EquipoVisitante.TRojas + partido.TRVisitante;
-                            partido.EquipoVisitante.Vctorias = partido.EquipoVisitante.Vctorias + 1;
-
-                            CLUBESTAdapter.Update(myEquipo.Nombre, partido.EquipoVisitante.GolesF, partido.EquipoVisitante.GolesC, myEquipo.NJugadores, partido.EquipoVisitante.Vctorias, myEquipo.Derrotas, myEquipo.Empates
-                                , partido.EquipoVisitante.TAmarillas, partido.EquipoVisitante.TRojas, myEquipo.ID_ligas, myEquipo.ID_CLUB, myEquipo.Nombre, myEquipo.GolesF, myEquipo.GolesC, myEquipo.NJugadores
-                                , myEquipo.Vctorias, myEquipo.Derrotas, myEquipo.Empates, myEquipo.TAmarillas, myEquipo.TRojas, myEquipo.ID_ligas);
-                        }
-                    }
-                }
                 return true;       
       
 
@@ -562,7 +621,9 @@ namespace LaLiga.Services.DataSet
                                 myJugador.TRojas = (int)row2["TRojas"];
                                 myJugador.Goles = (int)row2["Goles"];
                                 myJugador.Numero = (int)row2["Numero"];
-                                JUGADORESTAdapter.Update(myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, myJugador.TAmarillas, myJugador.TRojas, anotador.GolesPartido + myJugador.Goles, myJugador.Numero, myJugador.Equipo.ID_CLUB,
+                                int equipo = (int)row2["Id_Club1"];
+                                int goles = myJugador.Goles + anotador.GolesPartido;
+                                JUGADORESTAdapter.Update(myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, myJugador.TAmarillas, myJugador.TRojas, goles, myJugador.Numero, equipo,
                                     myJugador.ID_jugador, myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, myJugador.TAmarillas, myJugador.TRojas, myJugador.Goles, myJugador.Numero, myJugador.ID_jugador);
                             }
                         }
@@ -570,7 +631,7 @@ namespace LaLiga.Services.DataSet
                         return true;
 
                     }
-                    return false;
+                    
                 }
                 return false;
             }
@@ -590,6 +651,7 @@ namespace LaLiga.Services.DataSet
                         {
                             if (amonestado.Partido.IdPartido == (int)row1["Id_Partido1"] && amonestado.Jugador.ID_jugador == (int)row1["Id_Jugador1"])
                             {
+                                MessageBox.Show("Hay coincidencia"); 
                                 return false;
                             }
                         }
@@ -607,16 +669,23 @@ namespace LaLiga.Services.DataSet
                                 myJugador.TAmarillas = (int)row2["TAmarillas"];
                                 myJugador.TRojas = (int)row2["TRojas"];
                                 myJugador.Goles = (int)row2["Goles"];
+                                int equipo = (int)row2["Id_Club1"];
+                            int ta = myJugador.TAmarillas + amonestado.TAmarilla;
+                            int tr = myJugador.TRojas + amonestado.TRoja;
                                 myJugador.Numero = (int)row2["Numero"];
-                                JUGADORESTAdapter.Update(myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, amonestado.TAmarilla + myJugador.TAmarillas, amonestado.TRoja +myJugador.TRojas, myJugador.Goles , myJugador.Numero, myJugador.Equipo.ID_CLUB,
+                                JUGADORESTAdapter.Update(myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, ta, tr, myJugador.Goles , myJugador.Numero, equipo,
                                     myJugador.ID_jugador, myJugador.NJugador, myJugador.AJugador, myJugador.Posicion, myJugador.TAmarillas, myJugador.TRojas, myJugador.Goles, myJugador.Numero, myJugador.ID_jugador);
                             }
                         }
 
                         return true;
 
-                    }
-                    return false;
+                }
+                else
+                {
+
+                }
+               
                 }
                 return false;
            

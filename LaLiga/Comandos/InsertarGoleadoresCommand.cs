@@ -25,8 +25,10 @@ namespace LaLiga.Comandos
         public void Execute(object parameter)
         {
             ResultadosView vista = (ResultadosView)parameter;
-            ObservableCollection<AnotadorModel> listaGoleadores1 = resultadosViewModel.ListaGoleadoresLocal;
-            ObservableCollection<AnotadorModel> listaGoleadores2 = resultadosViewModel.ListaGoleadoresVisitante;
+            ObservableCollection<AnotadorModel> listaGoleadores2 =new ObservableCollection<AnotadorModel>();
+            ObservableCollection<AnotadorModel> listaGoleadores1 = new ObservableCollection<AnotadorModel>();
+            listaGoleadores1 = resultadosViewModel.ListaGoleadoresLocal;
+            listaGoleadores2 = resultadosViewModel.ListaGoleadoresVisitante;
             ObservableCollection<PartidoModel> listaPartidos = DataSetHandler.getAllPartidos();
             PartidoModel Cpartido = ((ResultadosViewModel)vista.DataContext).CurrentPartido;
             bool insertarOK = false;
@@ -45,15 +47,16 @@ namespace LaLiga.Comandos
                         anotador1.Partido = partido;
                         insertarOK = DataSetHandler.insertarAnotador(anotador1);
                     }
+                    if (insertarOK)
+                    {
+                        MessageBox.Show("Goleadores insertados correctamente");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha podido insertar los goleadores correctamente");
+                    }
                 }
-                if (insertarOK)
-                {
-                    MessageBox.Show("Goleadores insertados correctamente");
-                }
-                else
-                {
-                    MessageBox.Show("No se ha podido insertar los goleadores correctamente");
-                }
+               
             }
 
 

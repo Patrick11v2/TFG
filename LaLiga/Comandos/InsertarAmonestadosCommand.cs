@@ -25,8 +25,10 @@ namespace LaLiga.Comandos
         public void Execute(object parameter)
         {
             ResultadosView vista = (ResultadosView)parameter;
-            ObservableCollection<AmonestadoModel> listaAmonestadosLocal1 = resultadosViewModel.ListaAmonestadosLocal;
-            ObservableCollection<AmonestadoModel> listaAmonestadosVisitante1 = resultadosViewModel.ListaAmonestadosVisitante;
+            ObservableCollection<AmonestadoModel> listaAmonestadosLocal1 = new ObservableCollection<AmonestadoModel>();
+             listaAmonestadosLocal1 = resultadosViewModel.ListaAmonestadosLocal;
+            ObservableCollection<AmonestadoModel> listaAmonestadosVisitante1 = new ObservableCollection<AmonestadoModel>();
+             listaAmonestadosVisitante1 = resultadosViewModel.ListaAmonestadosVisitante;
             ObservableCollection<PartidoModel> listaPartidos = DataSetHandler.getAllPartidos();
             PartidoModel Cpartido = ((ResultadosViewModel)vista.DataContext).CurrentPartido;
             bool insertarOK = false;
@@ -45,15 +47,16 @@ namespace LaLiga.Comandos
                         amonestado1.Partido= partido;
                          insertarOK = DataSetHandler.insertarAmonestado(amonestado1);
                     }
+                    if (insertarOK)
+                    {
+                        MessageBox.Show("Amonestados insertados correctamente");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha podido insertar los amonestados correctamente");
+                    }
                 }
-                if (insertarOK)
-                {
-                    MessageBox.Show("Amonestados insertados correctamente");
-                }
-                else
-                {
-                    MessageBox.Show("No se ha podido insertar los amonestados correctamente");
-                }
+              
             }
            
 

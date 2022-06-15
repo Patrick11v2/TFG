@@ -143,6 +143,9 @@
     <Compile Include="Models\LigaModel.cs" />
     <Compile Include="Models\PartidoModel.cs" />
     <Compile Include="Services\DataSet\DataSetHandler.cs" />
+    <Compile Include="Services\DataSet\LigaDataSet.cs">
+      <DependentUpon>LigaDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Services\DataSet\LigaDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

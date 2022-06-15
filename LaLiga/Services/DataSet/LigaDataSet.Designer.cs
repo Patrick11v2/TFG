@@ -4872,12 +4872,26 @@ SELECT Id_Club, NombreClub, GFavor, GContra, NJugadores, Victorias, Derrotas, Em
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id_Club, NombreClub, GFavor, GContra, NJugadores, Victorias, Derrotas, Emp" +
                 "ates, TAmarillas, TRojas, Id_Liga1 FROM dbo.CLUBES";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "UPDATE  CLUBES\r\nSET              GFavor = @GFavor, GContra = @GContra, Victorias " +
+                "= @Victorias, Derrotas = @Derrotas, Empates = @Empates, TAmarillas = @TAmarillas" +
+                ", TRojas = @TRojas\r\nWHERE     (Id_Club = @Id_Club)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GFavor", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "GFavor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GContra", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "GContra", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Victorias", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Victorias", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Derrotas", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Derrotas", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Empates", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Empates", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TAmarillas", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "TAmarillas", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TRojas", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "TRojas", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id_Club", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id_Club", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5300,6 +5314,72 @@ SELECT Id_Club, NombreClub, GFavor, GContra, NJugadores, Victorias, Derrotas, Em
                     global::System.Nullable<int> Original_TRojas, 
                     int Original_Id_Liga1) {
             return this.Update(NombreClub, GFavor, GContra, NJugadores, Victorias, Derrotas, Empates, TAmarillas, TRojas, Id_Liga1, Original_Id_Club, Original_NombreClub, Original_GFavor, Original_GContra, Original_NJugadores, Original_Victorias, Original_Derrotas, Original_Empates, Original_TAmarillas, Original_TRojas, Original_Id_Liga1, Original_Id_Club);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateEquiposResultados(global::System.Nullable<int> GFavor, global::System.Nullable<int> GContra, global::System.Nullable<int> Victorias, global::System.Nullable<int> Derrotas, global::System.Nullable<int> Empates, global::System.Nullable<int> TAmarillas, global::System.Nullable<int> TRojas, int Id_Club) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
+            if ((GFavor.HasValue == true)) {
+                command.Parameters[0].Value = ((int)(GFavor.Value));
+            }
+            else {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((GContra.HasValue == true)) {
+                command.Parameters[1].Value = ((int)(GContra.Value));
+            }
+            else {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((Victorias.HasValue == true)) {
+                command.Parameters[2].Value = ((int)(Victorias.Value));
+            }
+            else {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((Derrotas.HasValue == true)) {
+                command.Parameters[3].Value = ((int)(Derrotas.Value));
+            }
+            else {
+                command.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((Empates.HasValue == true)) {
+                command.Parameters[4].Value = ((int)(Empates.Value));
+            }
+            else {
+                command.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((TAmarillas.HasValue == true)) {
+                command.Parameters[5].Value = ((int)(TAmarillas.Value));
+            }
+            else {
+                command.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((TRojas.HasValue == true)) {
+                command.Parameters[6].Value = ((int)(TRojas.Value));
+            }
+            else {
+                command.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            command.Parameters[7].Value = ((int)(Id_Club));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -6040,14 +6120,14 @@ SELECT Id_Liga, NombreLiga, Temporada, NEquipos FROM LIGAS WHERE (Id_Liga = @Id_
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(int iD_LIGA, LigaDataSet.LIGASDataTable dataTable) {
+        public virtual int Update(LigaDataSet.LIGASDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(int iD_LIGA, string nombre, LigaDataSet dataSet) {
+        public virtual int Update(LigaDataSet dataSet) {
             return this.Adapter.Update(dataSet, "LIGAS");
         }
         
