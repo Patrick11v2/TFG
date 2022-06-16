@@ -37,7 +37,7 @@ namespace LaLiga.Comandos
                 vista.JugadoresListView.SelectedIndex = 0;
                 
                 
-                MessageBox.Show("La liga se ha editado correctamente");
+                MessageBox.Show("La jugador se ha editado correctamente");
 
             }
         }

@@ -72,6 +72,7 @@ namespace LaLiga.Comandos
                     case MessageBoxResult.Yes:
                         resultadosViewModel.InsertarGoleadoresCommand.Execute(parameter);
                         resultadosViewModel.InsertarAmonestadosCommand.Execute(parameter);
+                        resultadosViewModel.UpdatePartidosResultadosCommand.Execute(parameter);
                         break;
 
                     case MessageBoxResult.No:
