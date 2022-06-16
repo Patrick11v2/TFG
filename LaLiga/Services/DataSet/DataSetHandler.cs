@@ -13,7 +13,7 @@ using System.Windows;
 namespace LaLiga.Services.DataSet
 {
     class DataSetHandler
-    {
+    { //DECLARAMOS LOS TABLEADAPTER
         private static LIGASTableAdapter LIGASAdapter = new LIGASTableAdapter();
         private static CLUBESTableAdapter CLUBESTAdapter = new CLUBESTableAdapter();
         private static JUGADORESTableAdapter JUGADORESTAdapter = new JUGADORESTableAdapter();
@@ -24,7 +24,7 @@ namespace LaLiga.Services.DataSet
         private static AMONESTADOSTableAdapter AMONESTADOSTAdapter = new AMONESTADOSTableAdapter();
         private static ANOTADORESTableAdapter ANOTADORESAdapter = new ANOTADORESTableAdapter();
 
-
+        //METODO PARA OBTENER TODAS LAS LIGAS
         public static ObservableCollection<LigaModel> getAllLigas()
         {
             DataTable LIGAS = LIGASAdapter.GetData();
@@ -41,6 +41,7 @@ namespace LaLiga.Services.DataSet
             }
             return listaLigas;
         }
+        //METODO PARA OBTENER LAS JORNADAS DE UN LIGA, DEPENDIENDO DE SU NUMERO DE EQUIPOS
         public static ObservableCollection<int> getJornadas(LigaModel liga)
         {
             DataTable LIGAS = LIGASAdapter.GetData();
@@ -72,6 +73,7 @@ namespace LaLiga.Services.DataSet
             return listaJornadas;
 
         }
+        //METODO PARA OBTENER TODOS LOS EQUIPOS ACTUALIZANDO NJUGADORES SI TUVIESE
         public static ObservableCollection<EquipoModel> getAllEquipos()
         {
             DataTable EQUIPOS = CLUBESTAdapter.GetData();
@@ -128,6 +130,7 @@ namespace LaLiga.Services.DataSet
             
             return listaEquipos;
         }
+        //METODO PARA OBTENER TODOS LOS JUGADORES
         public static ObservableCollection<JugadorModel> getAllJugadores()
         {
             DataTable JUGADORES = JUGADORESTAdapter.GetData();
@@ -159,6 +162,7 @@ namespace LaLiga.Services.DataSet
             }
             return listaJugadores;
         }
+        //METODO PARA OBTENER JUGADORES ORDENADOS POR GOLES
         public static ObservableCollection<JugadorModel> getAllJugadoresByGoles()
         {
             DataTable JUGADORES = JUGADORESTAdapter.GetDataByGoles();
@@ -190,6 +194,7 @@ namespace LaLiga.Services.DataSet
             }
             return listaJugadores;
         }
+        //METODO PARA OBTENER JUGADORES ORDENADOS POR TARJETAS
         public static ObservableCollection<JugadorModel> getAllJugadoresByTarjetas()
         {
             DataTable JUGADORES = JUGADORESTAdapter.GetDataByTarjetas();
@@ -222,6 +227,7 @@ namespace LaLiga.Services.DataSet
             return listaJugadores;
         }
 
+        //METODO PARA OBTENER TODOS LOS PARTIDOS
         public static ObservableCollection<PartidoModel> getAllPartidos()
         {
             DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
@@ -268,6 +274,7 @@ namespace LaLiga.Services.DataSet
             return listaPartidos;
 
         }
+        //METODO PARA OBTENER LOS ANOTADORES
         public static ObservableCollection<AnotadorModel> getAllAnotadores()
         {
             DataTable ANOTADORES = ANOTADORESAdapter.GetData();
@@ -298,6 +305,7 @@ namespace LaLiga.Services.DataSet
             return listaAnotadores;
 
         }
+        //METODO PARA OBTENER LOS GOLEADORES POR LIGA
         public static ObservableCollection<JugadorModel> getGoleadoresLiga(LigaModel currentLiga)
         {
            
@@ -316,6 +324,7 @@ namespace LaLiga.Services.DataSet
 
             return listaGoleadoresLiga;
         }
+        //METODO PARA OBTENER LOS AMONESTADOS POR LIGA
         public static ObservableCollection<JugadorModel> getAmonestadosLiga(LigaModel currentLiga)
         {
 
@@ -334,6 +343,7 @@ namespace LaLiga.Services.DataSet
 
             return listaAmonestadosLiga;
         }
+        //METODO PARA OBTENER TODOS LOS AMONESTADOS
         public static ObservableCollection<AmonestadoModel> getAllAmonestados()
         {
 
@@ -365,6 +375,7 @@ namespace LaLiga.Services.DataSet
             return listaAmonestados;
         }
 
+        //METODO PARA INSERTAR LIGAS
         public static bool insertarLiga(LigaModel liga)
         {
             DataTable LIGAS = LIGASAdapter.GetData();
@@ -387,6 +398,7 @@ namespace LaLiga.Services.DataSet
                 return false;
             }
         }
+        //METODO PARA INSERTAR PARTIDO, DONDE SE ACTUALIZAN LOS CLUBES IMPLICADOS DEPENDIENDO DEL RESULTADO DEL PARTIDO
         public static bool insertarPartido(PartidoModel partido)
         {
             DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
@@ -606,6 +618,8 @@ namespace LaLiga.Services.DataSet
       
 
         }
+        
+        //METODO PARA INSERTAR EQUIPO CON VALIDACIONES
         public static bool insertarEquipo(EquipoModel equipo)
         {
             DataTable LIGAS = LIGASAdapter.GetData();
@@ -650,6 +664,7 @@ namespace LaLiga.Services.DataSet
                 return false;
             }
         }
+        //METODO PARA INSERTAR ANOTADOR CON VALIDACIONES
         public static bool insertarAnotador(AnotadorModel anotador)
         {
             DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
@@ -701,6 +716,7 @@ namespace LaLiga.Services.DataSet
             }
             catch { return false; }
         }
+        //METODO PARA INSERTAR AMONESTADO CON VALIDACIONES
         public static bool insertarAmonestado (AmonestadoModel amonestado)
         {
             DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
@@ -754,6 +770,8 @@ namespace LaLiga.Services.DataSet
                 return false;
            
         }
+
+        //METODO PARA INSERTAR JUGADOR CON VALIDACIONES
         public static bool insertarJugador(JugadorModel jugador)
         {
             DataTable JUGADORES = JUGADORESTAdapter.GetData();
@@ -794,6 +812,7 @@ namespace LaLiga.Services.DataSet
             }
         }
 
+        //METODO PARA BORRAR LIGA
         public static bool borrarLiga(LigaModel liga)
         {
             try
@@ -807,6 +826,7 @@ namespace LaLiga.Services.DataSet
                 return false;
             }
         }
+       //METODO PARA BORRAR PARTIDO ACTUALIZANDO LOS CLUBES IMPLICADOS
         public static bool borrarPartido(PartidoModel partido)
         {
             DataTable PARTIDOS = PARTIDOSTAdapter.GetData();
@@ -951,6 +971,7 @@ namespace LaLiga.Services.DataSet
             }
             catch { return false; }
         }
+        //METODO PARA BORRAR EQUIPO
         public static bool borrarEquipo(EquipoModel equipo)
         {
             try
@@ -964,6 +985,7 @@ namespace LaLiga.Services.DataSet
                 return false;
             }
         }
+        //METODO PARA BORRAR JUGADOR, ACTUALIZANDO EL CLUB AFECTADO
         public static bool borrarJugador(JugadorModel jugador)
         {
             DataTable EQUIPOS = CLUBESTAdapter.GetData();
@@ -994,7 +1016,7 @@ namespace LaLiga.Services.DataSet
                 return false;
             }
         }
-
+        //METODO PARA EDITAR LIGA 
         public static bool editarLiga(LigaModel liga)
         {
             DataTable LIGAS = LIGASAdapter.GetData();
@@ -1023,6 +1045,7 @@ namespace LaLiga.Services.DataSet
                 return false;
             }
         }
+        //METODO PARA EDITAR EQUIPO CON VALIDACIONES
         public static bool editarEquipo(EquipoModel equipo)
         {
             DataTable EQUIPOS = CLUBESTAdapter.GetData();
@@ -1074,6 +1097,7 @@ namespace LaLiga.Services.DataSet
                 return false;
             }
         }
+        //METODO PARA EDITAR JUGADOR CON VALIDACIONES Y ACTUALIZANDO LOS CLUBES AFECTADOS
         public static bool editarJugador(JugadorModel jugador)
         {
             DataTable EQUIPOS = CLUBESTAdapter.GetData();

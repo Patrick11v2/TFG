@@ -64,25 +64,33 @@ namespace LaLiga.Comandos
             partido.TRLocal = trLocal;
             partido.TAVisitante = taVisitante;
             partido.TRVisitante = trVisitante;
-            bool insertarOk = DataSetHandler.insertarPartido(partido);
-            if (insertarOk) {
-                MessageBoxResult confirmacion = MessageBox.Show("¿Estás seguro de que quieres crear el partido? No se podrá ni eliminar ni modificar.", "Confirmación", MessageBoxButton.YesNo);
-                switch (confirmacion)
-                {
-                    case MessageBoxResult.Yes:
-                        resultadosViewModel.InsertarGoleadoresCommand.Execute(parameter);
-                        resultadosViewModel.InsertarAmonestadosCommand.Execute(parameter);
-                        resultadosViewModel.UpdatePartidosResultadosCommand.Execute(parameter);
-                        break;
-
-                    case MessageBoxResult.No:
-
-                        bool borradoOK = DataSetHandler.borrarPartido(partido);
-                        break;
-
-                }
+            if(partido.EquipoLocal == null || partido.EquipoVisitante == null)
+            {
+                MessageBox.Show("Tienes que seleccionar los equipos");
             }
-            else { MessageBox.Show("No se ha podido crear el partido"); }
+            else {
+                bool insertarOk = DataSetHandler.insertarPartido(partido);
+                if (insertarOk)
+                {
+                    MessageBoxResult confirmacion = MessageBox.Show("¿Estás seguro de que quieres crear el partido? No se podrá ni eliminar ni modificar.", "Confirmación", MessageBoxButton.YesNo);
+                    switch (confirmacion)
+                    {
+                        case MessageBoxResult.Yes:
+                            resultadosViewModel.InsertarGoleadoresCommand.Execute(parameter);
+                            resultadosViewModel.InsertarAmonestadosCommand.Execute(parameter);
+                            resultadosViewModel.UpdatePartidosResultadosCommand.Execute(parameter);
+                            break;
+
+                        case MessageBoxResult.No:
+
+                            bool borradoOK = DataSetHandler.borrarPartido(partido);
+                            break;
+
+                    }
+                }
+                else { MessageBox.Show("No se ha podido crear el partido"); }
+            }
+            
             
 
         }

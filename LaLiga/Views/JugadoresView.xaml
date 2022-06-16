@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LaLiga.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              x:Name="vistaJugadores"
-   Height="730" Width="1500">
+   Height="730" Width="1500" >
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -17,7 +17,7 @@
 
     </i:Interaction.Triggers>
 
-    <StackPanel Background="Green" Opacity="0.7" >
+    <StackPanel Background="Green" Opacity="0.8" >
 
         <Grid>
             <Grid.ColumnDefinitions>

@@ -16,7 +16,7 @@
 
     </i:Interaction.Triggers>
 
-    <StackPanel Background="Green" Opacity="0.7" >
+    <StackPanel Background="Green" Opacity="0.8" >
         <TextBlock  Text="PARTIDOS"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
         <Grid>
             <Grid.RowDefinitions>

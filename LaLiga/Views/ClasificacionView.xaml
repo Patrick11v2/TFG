@@ -17,7 +17,7 @@
 
     </i:Interaction.Triggers>
 
-    <StackPanel Background="Green" Opacity="0.7" >
+    <StackPanel Background="Green" Opacity="0.8" >
 
         <Grid>
             <Grid.ColumnDefinitions>
