@@ -66,7 +66,7 @@ namespace LaLiga.Comandos
             partido.TRVisitante = trVisitante;
             bool insertarOk = DataSetHandler.insertarPartido(partido);
             if (insertarOk) {
-                MessageBoxResult confirmacion = MessageBox.Show("¿Estás seguro de que quieres crear el partido? No se podrá eliminar ni modificar.", "Confirmación", MessageBoxButton.YesNo);
+                MessageBoxResult confirmacion = MessageBox.Show("¿Estás seguro de que quieres crear el partido? No se podrá ni eliminar ni modificar.", "Confirmación", MessageBoxButton.YesNo);
                 switch (confirmacion)
                 {
                     case MessageBoxResult.Yes:
