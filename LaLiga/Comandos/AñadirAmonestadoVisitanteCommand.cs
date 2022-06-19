@@ -46,6 +46,8 @@ namespace LaLiga.Comandos
             }
             else { MessageBox.Show("Este jugador ya esta como amonestado"); }
             resultadosViewModel.UpdateGolesResultadosCommand.Execute(vista);
+            vista.TAAmonestadoVisitante = new System.Windows.Controls.ComboBox();
+            vista.TRAmonestadoVisitante = new System.Windows.Controls.ComboBox();
             vista.TAAmonestadoVisitante.SelectedIndex = -1;
             vista.TRAmonestadoVisitante.SelectedIndex = -1;
             }

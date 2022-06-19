@@ -45,6 +45,7 @@ namespace LaLiga.Comandos
             }
             else { MessageBox.Show("Este jugador ya esta como anotador"); }
             resultadosViewModel.UpdateGolesResultadosCommand.Execute(vista);
+            vista.GolesGoleadorVisitante = new System.Windows.Controls.ComboBox();
             vista.GolesGoleadorVisitante.SelectedIndex = -1;
 
         }

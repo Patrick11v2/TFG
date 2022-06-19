@@ -123,11 +123,8 @@
                     
                     </ComboBox>
                     <ComboBox x:Name="AmonestadoLocal" materialDesign:HintAssist.Hint="Jugadores" FontSize="16" Grid.Column="0" Grid.Row="5" Width="100" Height="30" Margin="190,0,0,50" ItemsSource="{Binding ListaJugadoresLocal}" SelectedItem="{Binding CurrentAmonestadoLocal.Jugador}"></ComboBox>
-                    <ComboBox x:Name="TAAmonestadoLocal"  materialDesign:HintAssist.Hint="Amarillas" FontSize="16" Grid.Column="0" ItemsSource="{Binding Amarillas}" Grid.Row="5" Width="100" Height="30" Margin="190,40,0,0"  SelectedItem="{Binding CurrentAmonestadoLocal.TAmarilla}">
-                       
-
-                    </ComboBox>
-                    <ComboBox x:Name="TRAmonestadoLocal" materialDesign:HintAssist.Hint="Rojas" FontSize="16" Grid.Column="0" Grid.Row="5" ItemsSource="{Binding Rojas}" Width="100" Height="30" Margin="190,130,0,0"  SelectedItem="{Binding CurrentAmonestadoLocal.TRoja}">
+                    <ComboBox x:Name="TAAmonestadoLocal"  materialDesign:HintAssist.Hint="Amarillas" FontSize="16" Grid.Column="0" ItemsSource="{Binding Amarillas}" Grid.Row="5" Width="100" Height="30" Margin="190,40,0,0"  SelectedItem="{Binding CurrentAmonestadoLocal.TAmarilla}"/>
+                        <ComboBox x:Name="TRAmonestadoLocal" materialDesign:HintAssist.Hint="Rojas" FontSize="16" Grid.Column="0" Grid.Row="5" ItemsSource="{Binding Rojas}" Width="100" Height="30" Margin="190,130,0,0"  SelectedItem="{Binding CurrentAmonestadoLocal.TRoja}">
                        
 
 
@@ -196,9 +193,9 @@
 
                         <ListView.View >
                             <GridView >
-                                <GridViewColumn Header="Nombre" Width="100" DisplayMemberBinding="{Binding Path=Jugador.NJugador}"/>
-                                <GridViewColumn Header="T/A" Width="85" DisplayMemberBinding="{Binding Path=TAmarilla}"/>
-                                <GridViewColumn Header="T/R" Width="85" DisplayMemberBinding="{Binding Path=TRoja}" />
+                                <GridViewColumn Header="Nombre"  DisplayMemberBinding="{Binding Path=Jugador.NJugador}"/>
+                                <GridViewColumn Header="T/A"  DisplayMemberBinding="{Binding Path=TAmarilla}"/>
+                                <GridViewColumn Header="T/R"  DisplayMemberBinding="{Binding Path=TRoja}" />
 
                             </GridView>
                         </ListView.View>
