@@ -22,11 +22,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="BtnLigas" Grid.Column="0" Margin="15" Content="Ligas" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Ligas" Click="Btn_Click" Height="32"  Background="#7F008000" FontWeight="Bold"  />
-            <Button x:Name="BtnEquipos" Grid.Column="1" Margin="15" Content="Equipos" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Equipos" Click="Btn_Click"  Background="#7F008000" FontWeight="Bold" />
-            <Button x:Name="BtnJugadores" Grid.Column="2" Margin="15" Content="Jugadores" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Jugadores" Click="Btn_Click"  Background="#7F008000" FontWeight="Bold"   />
-            <Button x:Name="BtnClasificacion" Grid.Column="3" Margin="15" Content="Clasificación" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Clasificacion" Click="Btn_Click" Background="#7F008000" FontWeight="Bold"/>
-            <Button x:Name="BtnResultados" Grid.Column="4" Margin="15" Content="Resultados" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Resultados" Click="Btn_Click"  Background="#7F008000" FontWeight="Bold"  />
+            <Button x:Name="BtnLigas" BorderBrush="Gray" Grid.Column="0" Margin="15" Content="Ligas" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Ligas" Click="Btn_Click" Height="32"  Background="#7F008000" FontWeight="Bold"  />
+            <Button x:Name="BtnEquipos" BorderBrush="Gray"  Grid.Column="1" Margin="15" Content="Equipos" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Equipos" Click="Btn_Click"  Background="#7F008000" FontWeight="Bold" />
+            <Button x:Name="BtnJugadores" BorderBrush="Gray"  Grid.Column="2" Margin="15" Content="Jugadores" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Jugadores" Click="Btn_Click"  Background="#7F008000" FontWeight="Bold"   />
+            <Button x:Name="BtnClasificacion" BorderBrush="Gray"  Grid.Column="3" Margin="15" Content="Clasificación" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Clasificacion" Click="Btn_Click" Background="#7F008000" FontWeight="Bold"/>
+            <Button x:Name="BtnResultados" BorderBrush="Gray"  Grid.Column="4" Margin="15" Content="Resultados" Width="200" Command="{Binding UpdateViewCommand}" CommandParameter="Resultados" Click="Btn_Click"  Background="#7F008000" FontWeight="Bold" Cursor="Hand"  />
         </Grid>
         <ContentControl Content="{Binding SelectedViewModel}"/>
 

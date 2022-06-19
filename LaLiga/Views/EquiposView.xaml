@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:LaLiga.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              x:Name="vistaEquipos"
@@ -17,6 +18,7 @@
     </i:Interaction.Triggers>
 
     <StackPanel Background="Green" Opacity="0.8" >
+        <materialDesign:Card Padding="20" Margin="15" Background="Transparent" >
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -71,7 +73,7 @@
                               Background="Transparent"  Margin="0,50,0,0"
                              Text="{Binding CurrentEquipo.Nombre}"/>
                     <ComboBox Name="comboLigas" Grid.Row="1" Margin="0,50,0,0" Background="Transparent" Width="200 " BorderBrush="Transparent" 
-                             ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}"  >
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"  materialDesign:HintAssist.Hint="Liga" ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}"  >
                         
                     </ComboBox>
                    
@@ -81,7 +83,7 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,50,10,0">
 
-                    <Button x:Name="btnEditar" Width="120" Margin="5" Height="32" Command="{Binding EditarEquipoCommand}" CommandParameter="{Binding ElementName=vistaEquipos}"   Background="White" FontWeight="Bold" Content="EDITAR"/>
+                    <Button  x:Name="btnEditar" Width="120" Margin="5" Height="32" Command="{Binding EditarEquipoCommand}" CommandParameter="{Binding ElementName=vistaEquipos}"   Background="White" FontWeight="Bold" Content="EDITAR"/>
                     <Button x:Name="btnEliminar" Width="120" Margin="5" Height="32" Command="{Binding EliminarEquipoCommand}"  CommandParameter="{Binding ElementName=vistaEquipos}" Background="White" FontWeight="Bold" Content="ELIMINAR" />
                     <Button x:Name="btnCrear" Width="120" Margin="5" Height="32" Command="{Binding GuardarEquipoCommand}" CommandParameter="{Binding ElementName=vistaEquipos}" Background="White" FontWeight="Bold" Content="CREAR" />
 
@@ -100,13 +102,13 @@
 
 
                 </StackPanel>
-
-            </StackPanel>
+        
+    </StackPanel>
 
 
         </Grid>
 
-
+        </materialDesign:Card>
 
 
 
