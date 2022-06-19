@@ -1,5 +1,6 @@
 ﻿using LaLiga.Models;
 using LaLiga.ViewModels;
+using LaLiga.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,14 @@ namespace LaLiga.Comandos
         public void Execute(object parameter)
         {
             if (parameter != null)
-            {
-                PartidoModel partido = (PartidoModel)parameter;
+            {   ResultadosView vista = (ResultadosView)parameter;
+                try { 
+                PartidoModel partido = vista.ListaPartidos.SelectedItem as PartidoModel;
                 resultadosViewModel.CurrentPartido = (PartidoModel)partido.Clone();
+                }
+                catch { }
+
+
 
             }
         }

@@ -17,8 +17,8 @@
 
     </i:Interaction.Triggers>
 
-    <StackPanel Background="Green" Opacity="0.8" >
-        <materialDesign:Card Padding="20" Margin="15" Background="Transparent" >
+   
+        <materialDesign:Card Padding="20" Margin="15" Background="Green" Opacity="0.8" >
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -30,9 +30,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="CLUBES"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="CLUBES"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
             <StackPanel Grid.Row="1" Grid.Column="0">
-                <ListView x:Name="EquiposListView" ItemsSource="{Binding ListaEquipos}" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
+                <ListView x:Name="EquiposListView" ItemsSource="{Binding ListaEquipos}" Background="#00000000" BorderBrush="#00000000" Foreground="White"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
@@ -50,7 +50,7 @@
 
                 </ListView>
             </StackPanel>
-            <TextBlock Text="DATOS DEL CLUB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
+            <TextBlock Text="DATOS DEL CLUB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="30" FontWeight="Black"/>
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -63,18 +63,19 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Nombre" FontWeight="Black" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Liga" FontWeight="Black" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                   
                     
 
                     <TextBox x:Name="edt_nombre_equipo" Grid.Row="0" VerticalAlignment="Bottom" Width="200 " FontSize="16"
                              
-                             Cursor="Arrow"
+                             Cursor="Arrow"  materialDesign:HintAssist.Hint="Nombre" Foreground="white"
                               Background="Transparent"  Margin="0,50,0,0"
                              Text="{Binding CurrentEquipo.Nombre}"/>
-                    <ComboBox Name="comboLigas" Grid.Row="1" Margin="0,50,0,0" Background="Transparent" Width="200 " BorderBrush="Transparent" 
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"  materialDesign:HintAssist.Hint="Liga" ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}"  >
+                    <ComboBox Name="comboLigas" Grid.Row="1" Margin="0,50,0,0"  Width="200 "   FontSize="16" 
+                             materialDesign:HintAssist.Hint="Liga" Background="Green"  Foreground= "Black" ItemsSource="{Binding ListaLigas }" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}"  >
+
                         
+
                     </ComboBox>
                    
 
@@ -83,9 +84,9 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,50,10,0">
 
-                    <Button  x:Name="btnEditar" Width="120" Margin="5" Height="32" Command="{Binding EditarEquipoCommand}" CommandParameter="{Binding ElementName=vistaEquipos}"   Background="White" FontWeight="Bold" Content="EDITAR"/>
-                    <Button x:Name="btnEliminar" Width="120" Margin="5" Height="32" Command="{Binding EliminarEquipoCommand}"  CommandParameter="{Binding ElementName=vistaEquipos}" Background="White" FontWeight="Bold" Content="ELIMINAR" />
-                    <Button x:Name="btnCrear" Width="120" Margin="5" Height="32" Command="{Binding GuardarEquipoCommand}" CommandParameter="{Binding ElementName=vistaEquipos}" Background="White" FontWeight="Bold" Content="CREAR" />
+                    <Button  x:Name="btnEditar" Width="120" Margin="5" Height="32" Command="{Binding EditarEquipoCommand}" CommandParameter="{Binding ElementName=vistaEquipos}" BorderBrush="Gray"  Background="Green" FontWeight="Bold" Content="EDITAR"/>
+                    <Button x:Name="btnEliminar" Width="120" Margin="5" Height="32" Command="{Binding EliminarEquipoCommand}"  CommandParameter="{Binding ElementName=vistaEquipos}" BorderBrush="Gray" Background="Green" FontWeight="Bold" Content="ELIMINAR" />
+                    <Button x:Name="btnCrear" Width="120" Margin="5" Height="32" Command="{Binding GuardarEquipoCommand}" CommandParameter="{Binding ElementName=vistaEquipos}" BorderBrush="Gray" Background="Green" FontWeight="Bold" Content="CREAR" />
 
 
 
@@ -95,10 +96,10 @@
 
 
                 <StackPanel HorizontalAlignment="Center" Margin="0,50,0,0">
-                    <TextBlock Text=" *No se puede crear equipos con el mismo nombre. " FontWeight="Black"/>
-                    <TextBlock Text=" *Si la liga ha alcanzado su máximo de equipos, no se podra crear nuevos." FontWeight="Black"/>
-                    <TextBlock Text=" *Si la liga ha alcanzado su máximo de equipos, no se podra cambiar de liga a los equipos existentes." FontWeight="Black"/>
-                    <TextBlock Text=" *No se puede eliminar un equipo que contenga jugadores." FontWeight="Black"/>
+                    <TextBlock Text=" *No se puede crear equipos con el mismo nombre. " Foreground="White" FontSize="16" />
+                    <TextBlock Text=" *Si la liga ha alcanzado su máximo de equipos, no se podra crear nuevos." Foreground="White" FontSize="16"/>
+                    <TextBlock Text=" *Si la liga ha alcanzado su máximo de equipos, no se podra cambiar de liga a los equipos existentes." Foreground="White" FontSize="16"/>
+                    <TextBlock Text=" *No se puede eliminar un equipo que contenga jugadores." Foreground="White" FontSize="16"/>
 
 
                 </StackPanel>
@@ -118,7 +119,7 @@
 
 
 
-    </StackPanel>
+  
 
 
 </UserControl>

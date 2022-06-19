@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:LaLiga.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              x:Name="vistaJugadores"
@@ -17,8 +18,8 @@
 
     </i:Interaction.Triggers>
 
-    <StackPanel Background="Green" Opacity="0.8" >
-
+    
+        <materialDesign:Card Background="Green" Opacity="0.8">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -29,8 +30,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="JUGADORES"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="30" FontWeight="Black"/>
-            <ComboBox Name="comboLigas" Grid.Row="0" HorizontalAlignment="Right" Background="Transparent" Width="200 "  Height="25" BorderBrush="Transparent"
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="JUGADORES" Foreground="White" Margin="50,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="30" FontWeight="Black"/>
+            <ComboBox Name="comboLigas" Grid.Row="0" HorizontalAlignment="Right" Background="Transparent" Width="200 "  Height="25"  materialDesign:HintAssist.Hint="Ligas" Foreground="Black"
                       ItemsSource="{Binding ListaLigas}" SelectedItem="{Binding CurrentLiga, UpdateSourceTrigger=PropertyChanged}" >
                       
               <i:Interaction.Triggers>
@@ -39,7 +40,7 @@
                     </i:EventTrigger>
               </i:Interaction.Triggers>
             </ComboBox>
-            <ComboBox Name="comboEquiposLista" Grid.Row="0" HorizontalAlignment="Center" Background="Transparent" Width="200 "  Height="25" BorderBrush="Transparent"
+            <ComboBox Name="comboEquiposLista" Grid.Row="0" HorizontalAlignment="Center" Background="Transparent" Width="200" Foreground="Black"  Height="25"  materialDesign:HintAssist.Hint="Equipos" 
                              ItemsSource="{Binding ListaEquipos}" SelectedItem="{Binding CurrentEquipoLista, UpdateSourceTrigger=PropertyChanged}"  >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -51,10 +52,9 @@
 
 
 
-            <TextBlock Text="Ligas" HorizontalAlignment="Right" Margin="0,0,210,0" VerticalAlignment="Center" FontSize="20" FontWeight="Black"/>
-            <TextBlock Text="Club" HorizontalAlignment="Right" Margin="0,0,480,0" VerticalAlignment="Center" FontSize="20" FontWeight="Black"/>
+         
             <StackPanel Grid.Row="1" Grid.Column="0">
-                <ListView x:Name="JugadoresListView" ItemsSource="{Binding ListaJugadores}" Background="#00000000" BorderBrush="#00000000" Foreground="Black"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="Auto" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
+                <ListView x:Name="JugadoresListView" ItemsSource="{Binding ListaJugadores}" Background="#00000000" BorderBrush="#00000000" Foreground="White"  SelectionMode="Extended" FontWeight="Bold" FontSize="14" Margin="10,10,10,0" Width="550" Height="600" d:ItemsSource="{d:SampleData ItemCount=5}" FontStyle="Normal" >
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
@@ -65,16 +65,16 @@
                     </i:Interaction.Triggers>
                     <ListView.View >
                         <GridView >
-                            <GridViewColumn Header="Nombre" Width="230"  DisplayMemberBinding="{Binding Path=NJugador}"/>
-                            <GridViewColumn Header="Apellidos" Width="215" DisplayMemberBinding="{Binding Path=AJugador}"/>
-                            <GridViewColumn Header="Posición" Width="200 " DisplayMemberBinding="{Binding Path=Posicion}" />
-                            <GridViewColumn Header="Numero" Width="80" DisplayMemberBinding="{Binding Path=Numero}" />
+                            <GridViewColumn Header="Nombre" Width="150"  DisplayMemberBinding="{Binding Path=NJugador}"/>
+                            <GridViewColumn Header="Apellidos" Width="150" DisplayMemberBinding="{Binding Path=AJugador}"/>
+                            <GridViewColumn Header="Posición"  DisplayMemberBinding="{Binding Path=Posicion}" />
+                            <GridViewColumn Header="Numero"  DisplayMemberBinding="{Binding Path=Numero}" />
                         </GridView>
                     </ListView.View>
 
                 </ListView>
             </StackPanel>
-            <TextBlock Text="DATOS DEL JUGADOR" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
+            <TextBlock Text="DATOS DEL JUGADOR" Grid.Column="1" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Center" FontSize="30" FontWeight="Black"/>
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -88,33 +88,29 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Nombre" FontWeight="Black" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Apellidos" FontWeight="Black" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Posición" FontWeight="Black" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="250,0,0,0"/>
-                    <TextBlock Text="Numero" FontWeight="Black" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,250,0"/>
-                    <TextBlock Text="Club" FontWeight="Black" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                   
 
 
-                    <TextBox x:Name="edt_nombre_jugador" Grid.Row="0" VerticalAlignment="Bottom" Width="200 " FontSize="16"
+                    <TextBox x:Name="edt_nombre_jugador" Foreground="White" Grid.Row="0" VerticalAlignment="Bottom" Width="200 " FontSize="16"
                              
-                             Cursor="Arrow"
+                             Cursor="Arrow"  materialDesign:HintAssist.Hint="Nombre"
                               Background="Transparent"  Margin="0,50,0,0"
                              Text="{Binding CurrentJugador.NJugador}"/>
                     <TextBox x:Name="edt_apellido_jugador" Grid.Row="1" VerticalAlignment="Bottom" Width="200 " FontSize="16"
-                             
-                             Cursor="Arrow"
+                              materialDesign:HintAssist.Hint="Apellidos"
+                             Cursor="Arrow" Foreground="White"
                               Background="Transparent"  Margin="0,50,0,0"
                              Text="{Binding CurrentJugador.AJugador}"/>
                     <TextBox x:Name="edt_numero_jugador" Grid.Row="2" VerticalAlignment="Bottom" Width="200 " FontSize="16"
-                             
-                             Cursor="Arrow"
+                              materialDesign:HintAssist.Hint="Número"
+                             Cursor="Arrow" Foreground="White"
                               Background="Transparent"  Margin="0,50,250,0"
                              Text="{Binding CurrentJugador.Numero}"/>
-                    <ComboBox Name="comboEquipos" Grid.Row="3" Margin="0,50,0,0" Background="Transparent" Width="200 " BorderBrush="Transparent" 
+                    <ComboBox Name="comboEquipos" Grid.Row="3" Margin="0,50,0,0" Background="Transparent" Width="200 " FontSize="16" Foreground="Black"  materialDesign:HintAssist.Hint="Club"
                              ItemsSource="{Binding ListaEquipos}" SelectedItem="{Binding CurrentJugador.Equipo, UpdateSourceTrigger=PropertyChanged}"  >
 
                     </ComboBox>
-                    <ComboBox Name="comboPosicion" Grid.Row="2" Margin="250,50,0,0" Background="Transparent" Width="200 " BorderBrush="Transparent" 
+                    <ComboBox Name="comboPosicion" Grid.Row="2" Margin="250,50,0,0" FontSize="16" Background="Transparent" Width="200 " materialDesign:HintAssist.Hint="Posición" Foreground="Black"
                              Text="{Binding CurrentJugador.Posicion}"  >
                         <ComboBoxItem Content="Delantero"/>
                         <ComboBoxItem Content="Defensa"/>
@@ -131,9 +127,9 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,50,10,0">
 
-                    <Button x:Name="btnEditar" Width="120" Margin="5" Height="32" Command="{Binding EditarJugadorCommand}" CommandParameter="{Binding ElementName=vistaJugadores}"   Background="White" FontWeight="Bold" Content="EDITAR"/>
-                    <Button x:Name="btnEliminar" Width="120" Margin="5" Height="32" Command="{Binding EliminarJugadorCommand}"  CommandParameter="{Binding ElementName=vistaJugadores}" Background="White" FontWeight="Bold" Content="ELIMINAR" />
-                    <Button x:Name="btnCrear" Width="120" Margin="5" Height="32" Command="{Binding GuardarJugadorCommand}" CommandParameter="{Binding ElementName=vistaJugadores}" Background="White" FontWeight="Bold" Content="CREAR" />
+                    <Button x:Name="btnEditar" Width="120" Margin="5" Height="32" Command="{Binding EditarJugadorCommand}" CommandParameter="{Binding ElementName=vistaJugadores}" BorderBrush="Gray"  Background="Green" FontWeight="Bold" Content="EDITAR"/>
+                    <Button x:Name="btnEliminar" Width="120" Margin="5" Height="32" Command="{Binding EliminarJugadorCommand}"  CommandParameter="{Binding ElementName=vistaJugadores}" BorderBrush="Gray" Background="Green" FontWeight="Bold" Content="ELIMINAR" />
+                    <Button x:Name="btnCrear" Width="120" Margin="5" Height="32" Command="{Binding GuardarJugadorCommand}" CommandParameter="{Binding ElementName=vistaJugadores}" BorderBrush="Gray" Background="Green" FontWeight="Bold" Content="CREAR" />
 
 
 
@@ -143,9 +139,9 @@
 
 
                 <StackPanel HorizontalAlignment="Center" Margin="0,50,0,0">
-                    <TextBlock Text=" *No se puede crear jugadores de un mismo club con el mismo número. " FontWeight="Black"/>
-                    <TextBlock Text=" *No se puede crear jugadores con un numero mayor a 99." FontWeight="Black"/>
-                    <TextBlock Text=" *No se podrá eliminar jugadores que hayan marcado gol o recibido tarjeta." FontWeight="Black"/>
+                    <TextBlock Text=" *No se puede crear jugadores de un mismo club con el mismo número." FontSize="16" Foreground="White"/>
+                    <TextBlock Text=" *No se puede crear jugadores con un numero mayor a 99." FontSize="16" Foreground="White"/>
+                    <TextBlock Text=" *No se podrá eliminar jugadores que hayan marcado gol o recibido tarjeta." FontSize="16" Foreground="White"/>
                    
 
 
@@ -165,8 +161,8 @@
 
 
 
-
-    </StackPanel>
+        </materialDesign:Card>
+  
 
 
 </UserControl>

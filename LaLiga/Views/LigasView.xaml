@@ -71,14 +71,14 @@
                               Text="{Binding CurrentLiga.Nombre}"   Foreground="White"
                              Cursor="Arrow"
                               Background="Transparent"   materialDesign:HintAssist.Hint="Nombre Liga"  Margin="0,50,0,0" />
-                        <ComboBox Name="comboTemporadas" Text="{Binding CurrentLiga.Temporada}" FontSize="16"   materialDesign:HintAssist.Hint="Temporada"  Grid.Row="1" Margin="0,50,0,0" Foreground="White" Background="Transparent" Width="200 " >
-                            <ComboBoxItem Content="2022/2023" Foreground="Black"/>
-                            <ComboBoxItem Content="2023/2024" Foreground="Black"/>
-                            <ComboBoxItem Content="2024/2025" Foreground="Black"/>
-                            <ComboBoxItem Content="2025/2026" Foreground="Black"/>
-                            <ComboBoxItem Content="2026/2027" Foreground="Black"/>
-                            <ComboBoxItem Content="2027/2028" Foreground="Black"/>
-                            <ComboBoxItem Content="2028/2029" Foreground="Black"/>
+                    <ComboBox Name="comboTemporadas" Text="{Binding CurrentLiga.Temporada}" FontSize="16"     materialDesign:HintAssist.Hint="Temporada"  Grid.Row="1" Margin="0,50,0,0" Foreground="Black" Background="Transparent" Width="200 " >
+                            <ComboBoxItem Content="2022/2023"/>
+                            <ComboBoxItem Content="2023/2024"/>
+                            <ComboBoxItem Content="2024/2025" />
+                            <ComboBoxItem Content="2025/2026" />
+                            <ComboBoxItem Content="2026/2027"/>
+                            <ComboBoxItem Content="2027/2028"/>
+                            <ComboBoxItem Content="2028/2029" />
                         </ComboBox>
                         <TextBox x:Name="edt_n_equipos" Grid.Row="2" VerticalAlignment="Bottom" Width="200 " FontSize="16"
                              materialDesign:HintAssist.Hint="Número de equipos" Foreground="white"

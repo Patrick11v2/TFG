@@ -30,7 +30,7 @@ namespace LaLiga.Comandos
                 EquipoModel model = ((ResultadosViewModel)vista.DataContext).CurrentPartido.EquipoLocal;
                 ObservableCollection<JugadorModel> listaJugadoresl = new ObservableCollection<JugadorModel>();
                 resultadosViewModel.ListaJugadoresLocal = new ObservableCollection<JugadorModel>();
-
+                vista.TextLocal.Text = model.Nombre;
 
 
                 listaJugadoresl = DataSetHandler.getAllJugadores();
